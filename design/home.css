@@ -95,13 +95,16 @@ h1,h2,h3,p{margin:0}
 .about__home{--x:18.9%;--y:32.6%;font-size:11.8cqw;z-index:3}
 .about__body{--x:54.3%;--y:15.2%;--w:38.2%;z-index:3;font-size:1.18cqw;line-height:1.12}
 .about__body p+p{margin-top:1.4cqw}
-.about__goal-label{--x:71.5%;--y:38%;font-size:6.4cqw;color:#000;z-index:4}
+.about__goal-label{--x:64%;--y:37.4%;font-size:6.4cqw;color:#000;z-index:4}
 .about__goal{
-  --x:54.4%;--y:43.6%;--w:36.9%;height:26.9%;
+  --x:54.2%;--y:43.2%;--w:37.2%;height:27.2%;
   background:var(--pink);border-radius:1.5cqw;z-index:3;
-  display:flex;align-items:center;padding:0 4.4cqw 1.6cqw 1.9cqw;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:4.9cqw 2.2cqw 0;
 }
-.about__goal p{font-size:1.09cqw;line-height:1.2}
+.about__goal p{font-size:1.04cqw;line-height:1.2;margin:0}
+.about__goal .about__tag{font-weight:700;font-size:1.15cqw;margin-top:1cqw}
+.about__logo{width:4.1cqw;height:auto;margin-top:.9cqw}
 .about__photo{position:absolute;left:0;bottom:0;width:100%;height:auto;z-index:2}
 
 /* ── 3 · Featured dishes ── */
