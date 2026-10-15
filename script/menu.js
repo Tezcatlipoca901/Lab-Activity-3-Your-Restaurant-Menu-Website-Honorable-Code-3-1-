@@ -128,3 +128,85 @@
     });
   });
 })();
+
+
+// Sulit Deals carousel (dots, swipe, auto-advance)
+(function(){
+  var root = document.querySelector('.sulit-deals');
+  if(!root) return;
+
+  var viewport = root.querySelector('.sulit-deals__viewport'),
+      track    = root.querySelector('.sulit-deals__track'),
+      slides   = [].slice.call(root.querySelectorAll('.sulit-deals__slide')),
+      dots     = [].slice.call(root.querySelectorAll('.sulit-deals__dot')),
+      count    = slides.length,
+      index    = 0,
+      timer    = null,
+      INTERVAL = 6000,
+      reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if(count < 2) return;
+
+  function go(i, user){
+    index = (i + count) % count;
+    track.style.transform = 'translateX(' + (-100 * index) + '%)';
+    slides.forEach(function(s, n){
+      if(n === index){ s.removeAttribute('aria-hidden'); s.removeAttribute('inert'); }
+      else { s.setAttribute('aria-hidden', 'true'); s.setAttribute('inert', ''); }
+    });
+    dots.forEach(function(d, n){
+      var on = n === index;
+      d.classList.toggle('is-active', on);
+      d.setAttribute('aria-selected', on ? 'true' : 'false');
+      d.tabIndex = on ? 0 : -1;               // roving tabindex: arrows move between dots
+    });
+    if(user) restart();
+  }
+
+  function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+  function start(){
+    if(reduceMotion || timer) return;
+    timer = setInterval(function(){ go(index + 1); }, INTERVAL);
+  }
+  function restart(){ stop(); start(); }
+
+  // Dots
+  dots.forEach(function(dot, n){
+    dot.addEventListener('click', function(){ go(n, true); });
+    dot.addEventListener('keydown', function(e){
+      var next = null;
+      if(e.key === 'ArrowRight' || e.key === 'ArrowDown') next = n + 1;
+      else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = n - 1;
+      else if(e.key === 'Home') next = 0;
+      else if(e.key === 'End') next = count - 1;
+      if(next === null) return;
+      e.preventDefault();
+      go(next, true);
+      dots[(next + count) % count].focus();
+    });
+  });
+
+  // Swipe (touch + mouse drag on desktop)
+  var startX = 0, startY = 0, tracking = false;
+  viewport.addEventListener('pointerdown', function(e){
+    if(e.pointerType === 'mouse' && e.button !== 0) return;
+    startX = e.clientX; startY = e.clientY; tracking = true;
+  });
+  viewport.addEventListener('pointerup', function(e){
+    if(!tracking) return;
+    tracking = false;
+    var dx = e.clientX - startX, dy = e.clientY - startY;
+    if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) go(index + (dx < 0 ? 1 : -1), true);
+  });
+  viewport.addEventListener('pointercancel', function(){ tracking = false; });
+
+  // Pause while the person is looking at / interacting with it, or the tab is hidden
+  root.addEventListener('mouseenter', stop);
+  root.addEventListener('mouseleave', start);
+  root.addEventListener('focusin', stop);
+  root.addEventListener('focusout', start);
+  document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : start(); });
+
+  go(0);
+  start();
+})();

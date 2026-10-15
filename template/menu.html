@@ -232,25 +232,102 @@
     <div class="menu-container">
       
       <!-- LEFT SIDE: SULIT DEALS -->
-      <aside class="sulit-deals">
+      <aside class="sulit-deals" aria-roledescription="carousel" aria-label="Sulit Deals">
         <div class="sulit-deals__circle">
           <div class="sulit-deals__header">
             <h2 class="sulit-deals__title">SULIT</h2>
             <p class="sulit-deals__subtitle">Deals</p>
           </div>
-          
-          <div class="sulit-deals__badge">
-            <span class="sulit-deals__badge-label">ONLY</span>
-            <span class="sulit-deals__badge-price">₱340</span>
-            <span class="sulit-deals__badge-old">₱440</span>
+
+          <div class="sulit-deals__viewport">
+            <div class="sulit-deals__track" aria-live="off">
+
+              <!-- Deal 1 -->
+              <div class="sulit-deals__slide" role="group" aria-roledescription="slide" aria-label="Deal 1 of 5">
+                <div class="sulit-deals__badge">
+                  <span class="sulit-deals__badge-label">ONLY</span>
+                  <span class="sulit-deals__badge-price">₱339</span>
+                  <span class="sulit-deals__badge-old">₱388</span>
+                </div>
+                <div class="sulit-deals__images">
+                  <img class="sulit-deals__img-combo" src="../assets/Sulit Deals/Sulit Deal 1.png" alt="Tapsilog with a Camias + Lemongrass drink">
+                </div>
+                <p class="sulit-deals__desc">
+                  Start your day with savory Tapsilog paired with a refreshing Camias and Lemongrass drink. A satisfying Filipino breakfast with a tangy twist.
+                </p>
+              </div>
+
+              <!-- Deal 2 -->
+              <div class="sulit-deals__slide" role="group" aria-roledescription="slide" aria-label="Deal 2 of 5">
+                <div class="sulit-deals__badge">
+                  <span class="sulit-deals__badge-label">ONLY</span>
+                  <span class="sulit-deals__badge-price">₱549</span>
+                  <span class="sulit-deals__badge-old">₱608</span>
+                </div>
+                <div class="sulit-deals__images">
+                  <img class="sulit-deals__img-combo" src="../assets/Sulit Deals/Sulit Deal 2.png" alt="Creamy Kare-Kare with Lumpiang Ubod">
+                </div>
+                <p class="sulit-deals__desc">
+                  Enjoy rich and creamy Kare-Kare alongside fresh Lumpiang Ubod. A satisfying combination that brings together two beloved Filipino dishes.
+                </p>
+              </div>
+
+              <!-- Deal 3 -->
+              <div class="sulit-deals__slide" role="group" aria-roledescription="slide" aria-label="Deal 3 of 5">
+                <div class="sulit-deals__badge">
+                  <span class="sulit-deals__badge-label">ONLY</span>
+                  <span class="sulit-deals__badge-price">₱499</span>
+                  <span class="sulit-deals__badge-old">₱567</span>
+                </div>
+                <div class="sulit-deals__images">
+                  <img class="sulit-deals__img-combo" src="../assets/Sulit Deals/Sulit Deal 3.png" alt="Sisig and Fried Rice with a Strawberry + Camias drink">
+                </div>
+                <p class="sulit-deals__desc">
+                  Savor flavorful Sisig served with Fried Rice and a refreshing Strawberry and Camias drink. A satisfying combination of savory, sweet, and tangy flavors.
+                </p>
+              </div>
+
+              <!-- Deal 4 -->
+              <div class="sulit-deals__slide" role="group" aria-roledescription="slide" aria-label="Deal 4 of 5">
+                <div class="sulit-deals__badge">
+                  <span class="sulit-deals__badge-label">ONLY</span>
+                  <span class="sulit-deals__badge-price">₱289</span>
+                  <span class="sulit-deals__badge-old">₱334</span>
+                </div>
+                <div class="sulit-deals__images">
+                  <img class="sulit-deals__img-combo" src="../assets/Sulit Deals/Sulit Deal 4.png" alt="Tocilog with Ube Ensaymada">
+                </div>
+                <p class="sulit-deals__desc">
+                  Enjoy sweet and savory Tocilog paired with soft and flavorful Ube Ensaymada. A comforting breakfast combination with a delightful ube treat.
+                </p>
+              </div>
+
+              <!-- Deal 5 -->
+              <div class="sulit-deals__slide" role="group" aria-roledescription="slide" aria-label="Deal 5 of 5">
+                <div class="sulit-deals__badge">
+                  <span class="sulit-deals__badge-label">ONLY</span>
+                  <span class="sulit-deals__badge-price">₱369</span>
+                  <span class="sulit-deals__badge-old">₱418</span>
+                </div>
+                <div class="sulit-deals__images">
+                  <img class="sulit-deals__img-combo" src="../assets/Sulit Deals/Sulit Deal 5.png" alt="Chicken Tinola sa Gata with Fried Rice">
+                </div>
+                <p class="sulit-deals__desc">
+                  Warm up with comforting Chicken Tinola sa Gata served with flavorful Fried Rice. A creamy Filipino classic that brings the taste of home to every bite.
+                </p>
+              </div>
+
+            </div>
           </div>
-          
-          <div class="sulit-deals__images">
-            <img class="sulit-deals__img-main" src="../assets/Foods No BG/Main Dish/crispy pata.png" alt="Crispy pata">
-            <img class="sulit-deals__img-side" src="../assets/Foods No BG/Appetizers/Lumpiang ubod.png" alt="Fresh Lumpia">
+
+          <!-- Carousel dots (wired up by menu.js) -->
+          <div class="sulit-deals__dots" role="tablist" aria-label="Choose a Sulit Deal">
+            <button type="button" class="sulit-deals__dot is-active" role="tab" aria-selected="true" aria-label="Deal 1: Sulit Silog Refresh"></button>
+            <button type="button" class="sulit-deals__dot" role="tab" aria-selected="false" aria-label="Deal 2: Pinoy Classics Combo"></button>
+            <button type="button" class="sulit-deals__dot" role="tab" aria-selected="false" aria-label="Deal 3: Sizzling Sarap Deal"></button>
+            <button type="button" class="sulit-deals__dot" role="tab" aria-selected="false" aria-label="Deal 4: Ube Morning Treat"></button>
+            <button type="button" class="sulit-deals__dot" role="tab" aria-selected="false" aria-label="Deal 5: Gata Comfort Combo"></button>
           </div>
-          
-          <p class="sulit-deals__desc">Enjoy rich and Creamy Kare-Kare alongside Fresh Lumpia.</p>
         </div>
       </aside>
       

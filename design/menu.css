@@ -3,6 +3,17 @@
   src:url('../assets/fonts/LuxuriousScript-Regular.ttf') format('truetype');
   font-weight:400;font-style:normal;font-display:swap;
 }
+@font-face{
+  font-family:'Huninn';
+  src:url('../assets/fonts/Huninn-Regular.ttf') format('truetype');
+  font-weight:400;font-style:normal;font-display:swap;
+}
+@font-face{
+  font-family:'Farsan';
+  src:url('../assets/fonts/Farsan-Regular.ttf') format('truetype');
+  font-weight:400;font-style:normal;font-display:swap;
+  unicode-range:U+20B1;              /* only the peso sign ₱ uses Farsan */
+}
 
 :root{
   --coral:#FD595B;
@@ -11,9 +22,12 @@
   --ink:#000;
   --paper:#fff;
   --field:#F2ECEC;
+  --green: #99CA97;
   --nav-h:clamp(64px,7vw,128px);
   --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
   --script:'Luxurious Script','Snell Roundhand','Apple Chancery',cursive;
+  --desc:'Huninn',var(--sans);      /* menu + platter descriptions */
+  --peso:'Farsan',var(--sans);      /* ₱ sign from Farsan, digits fall through to the normal font */
   color-scheme:light;
 }
 
@@ -240,6 +254,7 @@ img{max-width:100%;height:auto}
 }
 .platter__desc{
   margin:0 0 1.1cqw;
+  font-family:var(--desc);font-weight:400;
   font-size:clamp(9.5px,.72cqw,18px);line-height:1.3;
 }
 .platter__list{
@@ -261,6 +276,7 @@ img{max-width:100%;height:auto}
   text-transform:uppercase;line-height:1;margin-bottom:.35em;
 }
 .platter__price{
+  font-family:var(--peso);font-synthesis-weight:none;
   font-size:clamp(13px,1.4cqw,30px);font-weight:700;line-height:1;white-space:nowrap;
 }
 
@@ -380,26 +396,85 @@ img{max-width:100%;height:auto}
   text-transform:uppercase;line-height:1;color:#555;margin-bottom:.3em;
 }
 .sulit-deals__badge-price{
+  font-family:var(--peso);font-synthesis-weight:none;
   font-size:calc(var(--b) * 2.4);font-weight:700;line-height:1;
 }
 .sulit-deals__badge-old{
+  font-family:var(--peso);font-synthesis-weight:none;
   font-size:calc(var(--b) * 1.7);font-weight:600;line-height:1;
-  color:var(--coral);opacity:.75;text-decoration:line-through;
+  position:relative;
+  color:var(--green);
+  --x:max(.9px,.035em);              /* half the thickness of the cross-out lines */
+}
+/* cross-out: two thin dark-green diagonals forming an X that runs a little past the number */
+.sulit-deals__badge-old::after{
+  content:"";position:absolute;pointer-events:none;
+  left:-12%;right:-12%;top:.2em;height:.45em;
+  background:
+    linear-gradient(to top right,    transparent calc(50% - var(--x)), var(--leaf) calc(50% - var(--x)), var(--leaf) calc(50% + var(--x)), transparent calc(50% + var(--x))),
+    linear-gradient(to bottom right, transparent calc(50% - var(--x)), var(--leaf) calc(50% - var(--x)), var(--leaf) calc(50% + var(--x)), transparent calc(50% + var(--x)));
 }
 
-/* plates: wrapper dissolves so the images position against the aside */
+/* ── Carousel: each slide is the same frame as the aside, so the
+      absolute coordinates below still work. Only the track moves. ── */
+.sulit-deals__viewport{
+  position:absolute;inset:0;z-index:2;
+  overflow:hidden;
+  touch-action:pan-y;              /* vertical scroll stays native, horizontal swipes go to the carousel */
+}
+.sulit-deals__track{
+  display:flex;height:100%;
+  transition:transform .55s cubic-bezier(.65,0,.35,1);
+  will-change:transform;
+}
+.sulit-deals__slide{position:relative;flex:0 0 100%;height:100%;min-width:0}
+
+/* plates: each deal is one picture you composed (assets/Sulit Deals/). The wrapper dissolves
+   so the image positions against the slide, same coordinate frame as the badge and text. */
 .sulit-deals__images{display:contents}
-.sulit-deals__img-main,.sulit-deals__img-side{
-  position:absolute;object-fit:contain;
+.sulit-deals__img-combo{
+  position:absolute;z-index:1;object-fit:contain;
+  left:3cqw;top:21.5cqw;width:30cqw;height:22.5cqw;
   filter:drop-shadow(0 .5cqw 1cqw rgba(0,0,0,.18));
 }
-.sulit-deals__img-main{left:1.88cqw;top:27.81cqw;width:18.85cqw;height:18.85cqw;z-index:2}
-.sulit-deals__img-side{left:17.45cqw;top:24.79cqw;width:13.07cqw;height:12.5cqw;z-index:1}
+/* per-deal size / position tweaks (the pictures have different amounts of empty space) */
+.sulit-deals__img-combo[src*="Deal 1"]{left:3.2cqw;top:21.8cqw;width:33cqw;height:24.3cqw}
+.sulit-deals__img-combo[src*="Deal 3"]{left:10.5cqw;top:20cqw;width:25.5cqw;height:25.5cqw}
 
 .sulit-deals__desc{
   position:absolute;z-index:2;
-  left:2.08cqw;top:45.83cqw;max-width:24.5cqw;margin:0;
-  font-size:1.05cqw;font-weight:500;line-height:1.3;color:#000;
+  left:2.08cqw;top:45.6cqw;max-width:21cqw;margin:0;
+  font-family: var(--desc);font-size:1.05cqw;font-weight:500;line-height:1.3;color:#000;
+}
+
+
+/* ── Dots ── */
+.sulit-deals__dots{
+  position:absolute;z-index:4;
+  left:1.6cqw;top:52.1cqw;
+  display:flex;align-items:center;gap:.2cqw;
+}
+.sulit-deals__dot{
+  /* big invisible hit area, small visible dot */
+  position:relative;
+  width:max(22px,1.9cqw);height:max(22px,1.9cqw);
+  padding:0;border:0;background:transparent;cursor:pointer;
+}
+.sulit-deals__dot::before{
+  content:"";position:absolute;left:50%;top:50%;
+  width:max(9px,.85cqw);height:max(9px,.85cqw);
+  transform:translate(-50%,-50%);
+  border-radius:999px;background:#fff;
+  box-shadow:0 0 0 1px var(--coral) inset;
+  transition:background-color .3s ease;
+}
+.sulit-deals__dot:hover::before{background:var(--blush)}
+.sulit-deals__dot.is-active::before{background:var(--coral)}
+.sulit-deals__dot:focus-visible{outline:2px solid var(--coral);outline-offset:-2px;border-radius:999px}
+
+@media (prefers-reduced-motion:reduce){
+  .sulit-deals__track{transition:none}
+  .sulit-deals__dot::before{transition:none}
 }
 
 /* ══════════════════════════════════════════
@@ -410,11 +485,19 @@ img{max-width:100%;height:auto}
   position:relative;
   display:flex;flex-direction:column;
   padding-top:6.93cqw;             /* search bar starts 133px into the frame */
+  /* The scroll window is the whole right column, so it starts and ends exactly where the
+     Sulit Deals panel does. Content slides under the navbar on both sides at the same line. */
+  height:56.25cqw;
+  overflow-x:hidden;overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:var(--coral) transparent;
 }
+.menu-main > *{flex:none}          /* stop the flex column from squashing the grid */
+.menu-main::-webkit-scrollbar{width:8px}
+.menu-main::-webkit-scrollbar-thumb{background:var(--coral);border-radius:999px}
 /* small pink dot to the right of the filters */
 .menu-main::before{
   content:"";position:absolute;z-index:0;
-  left:54.58cqw;top:12.03cqw;width:3.75cqw;aspect-ratio:1;
+  left:54cqw;top:12.03cqw;width:3.75cqw;aspect-ratio:1;
   border-radius:50%;background:var(--pink);
 }
 
@@ -458,16 +541,9 @@ img{max-width:100%;height:auto}
   column-gap:calc(var(--u) * 4.3);
   row-gap:calc(var(--u) * 7.65);                 /* leaves room for the images that break out of each card */
   margin-top:1.3cqw;
-  /* The cards live in a window that ends where the Figma frame ends (1080px),
-     so the Sulit Deals panel and the menu are one self-contained section and the
-     rest of the menu scrolls inside it instead of spilling below. */
-  height:39.15cqw;
+  /* The rest of the menu scrolls inside .menu-main (the window above), not in the grid itself. */
   padding:calc(var(--u) * 5.7) .5cqw calc(var(--u) * 2) 0;   /* top padding = room for the images that pop out of row 1 */
-  overflow-y:auto;
-  scrollbar-width:thin;scrollbar-color:var(--coral) transparent;
 }
-.menu-grid::-webkit-scrollbar{width:8px}
-.menu-grid::-webkit-scrollbar-thumb{background:var(--coral);border-radius:999px}
 
 /* ── Card ── */
 .menu-card{
@@ -494,9 +570,18 @@ img{max-width:100%;height:auto}
   display:block;width:100%;height:100%;
   object-fit:contain;object-position:center;
   filter:drop-shadow(0 calc(var(--u) * .35) calc(var(--u) * .7) rgba(0,0,0,.22));
+  transform:scale(var(--img-scale,1));
   transition:transform .3s ease;
 }
-.menu-card:hover .menu-card__img img{transform:scale(1.05)}
+.menu-card:hover .menu-card__img img{transform:scale(calc(var(--img-scale,1) * 1.05))}
+
+/* Some PNGs have a lot of empty transparent padding, so the dish looks tiny inside the box.
+   --img-scale enlarges those images to match the others. Tweak the numbers to taste;
+   the real fix is cropping the PNGs to the dish. */
+.menu-card__img img[src*="ube champorado"]{--img-scale:2.2}
+.menu-card__img img[src*="tapsilog"]{--img-scale:1.8}
+.menu-card__img img[src*="tocilog"]{--img-scale:2.2}
+.menu-card__img img[src*="CornedbeefSilog"]{--img-scale:2.2}
 
 /* price badge: white circle, green text */
 .menu-card__price{
@@ -511,6 +596,7 @@ img{max-width:100%;height:auto}
   text-transform:uppercase;line-height:1;color:#777;
 }
 .menu-card__price-amount{
+  font-family:var(--peso);font-synthesis-weight:none;
   font-size:max(15px,calc(var(--u) * 1.25));font-weight:800;line-height:1;
   color:var(--leaf);white-space:nowrap;
 }
@@ -530,6 +616,7 @@ img{max-width:100%;height:auto}
 }
 .menu-card__desc{
   margin:0;color:#fff;
+  font-family:var(--desc);font-weight:400;
   font-size:max(11.5px,calc(var(--u) * .7));line-height:1.3;
 }
 
@@ -545,7 +632,7 @@ img{max-width:100%;height:auto}
 @media (max-width:860px){
   .menu-body{padding-top:var(--nav-h)}
   .menu-container{display:block;padding:0 5cqw 10cqw}
-  .menu-main{--u:2.4cqw;padding-top:6cqw}
+  .menu-main{--u:2.4cqw;padding-top:6cqw;height:auto;overflow:visible}
   .menu-main::before{display:none}
 
   .sulit-deals{
@@ -556,11 +643,20 @@ img{max-width:100%;height:auto}
   .sulit-deals__header,.sulit-deals__badge,.sulit-deals__desc{position:static}
   .sulit-deals__title{font-size:clamp(44px,9vw,72px)}
   .sulit-deals__subtitle{margin:-.3em 0 0;font-size:clamp(64px,13vw,104px)}
+
+  /* carousel: viewport and slides flow normally, slides still sit side by side in the track */
+  .sulit-deals__viewport{position:static;inset:auto}
+  .sulit-deals__track{height:auto;align-items:flex-start}
+  .sulit-deals__slide{height:auto}
+
   .sulit-deals__badge{--b:clamp(12px,2.2vw,16px);margin:20px auto 0}
-  .sulit-deals__images{display:block;position:relative;height:min(64vw,380px);margin:12px 0 8px}
-  .sulit-deals__img-main{left:0;top:auto;bottom:0;width:62%;height:auto;aspect-ratio:1}
-  .sulit-deals__img-side{left:auto;right:0;top:0;width:48%;height:auto;aspect-ratio:1}
+  .sulit-deals__images{display:block;position:relative;margin:12px 0 8px}
+  .sulit-deals__img-combo{position:static;display:block;width:100%;height:auto}
+  .sulit-deals__img-combo[src*="Deal 1"]{margin-top:-9%}
+  .sulit-deals__img-combo[src*="Deal 3"]{width:84%;margin-left:auto;margin-right:auto}
   .sulit-deals__desc{max-width:none;margin:0 auto;font-size:16px}
+
+  .sulit-deals__dots{position:static;justify-content:center;margin-top:14px}
 
   .menu-grid{height:auto;overflow:visible;padding-right:0}
   .menu-filters{gap:8px}
