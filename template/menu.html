@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Menu | Kusina.</title>
+<meta name="description" content="Browse the Kusina menu: main dishes, desserts, drinks and appetizers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../design/menu.css">
+</head>
+<body>
+
+<!-- Sticky navbar -->
+<header class="nav" id="nav">
+  <div class="nav__in">
+    <a class="nav__logo" href="home.html" aria-label="Kusina, back to top"><img src="../assets/logo.webp" alt="Kusina." width="1600" height="636"></a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><span></span></button>
+    <nav class="nav__pill" id="nav-links" aria-label="Primary">
+      <a href="#home" class="is-active" style="--c:9.05%" aria-current="true">Home</a>
+      <a href="#platter" style="--c:50%">Family Platter</a>
+      <a href="#menu" style="--c:90.9%">Menu</a>
+      <a class="only-mobile" href="home.html">← Back to Home</a>
+    </nav>
+    <a class="btn nav__cta" href="home.html">Back to Home</a>
+  </div>
+</header>
+
+<main>
+  <section class="menu-hero" id="home" aria-labelledby="menu-title">
+    <!-- decorative shapes -->
+    <span class="deco deco--ring" aria-hidden="true"></span>
+    <span class="deco deco--c1" aria-hidden="true"></span>
+    <span class="deco deco--c2" aria-hidden="true"></span>
+    <span class="deco deco--c3" aria-hidden="true"></span>
+    <span class="deco deco--c4" aria-hidden="true"></span>
+    <span class="deco deco--c5" aria-hidden="true"></span>
+
+    <div class="menu-hero__copy">
+      <h1 id="menu-title" class="menu-title">
+        <span class="menu-title__our">Our</span>
+        <span class="menu-title__menu">Menu</span>
+      </h1>
+      <p class="menu-hero__sub">Explore Filipino favorites from breakfast to merienda. Every dish is cooked to order and best enjoyed together.</p>
+      <form class="menu-search" role="search" onsubmit="return false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input type="search" name="q" placeholder="Search" aria-label="Search the menu">
+      </form>
+    </div>
+
+    <div class="menu-hero__media">
+      <img src="../assets/kare%20kare.png" alt="Kare-kare served in a clay pot on banana leaves">
+    </div>
+  </section>
+
+  <!-- ── Family Platter ── -->
+  <section class="platter" id="platter" aria-labelledby="platter-title">
+
+    <article class="platter__card" aria-label="Kusina Salo-Salo Family Platter">
+
+      <!-- Left: food image cluster (bleeds outside card) -->
+      <div class="platter__imgs" aria-hidden="true">
+        <!-- 2×2 food quad -->
+        <div class="platter__quad">
+          <img class="platter__quad-img" src="../assets/Foods No BG/Main Dish/crispy pata.png" alt="">
+          <img class="platter__quad-img" src="../assets/Foods No BG/fried rice.png" alt="">
+          <img class="platter__quad-img" src="../assets/Foods No BG/Appetizers/Lumpiang ubod.png" alt="">
+          <img class="platter__quad-img" src="../assets/Foods No BG/Main Dish/tinola.png" alt="">
+        </div>
+        <!-- Drink bottle in front-center -->
+        <img class="platter__drink" src="../assets/softdrinks.png" alt="">
+      </div>
+
+      <!-- Right: text + price -->
+      <div class="platter__content">
+        <h2 class="platter__name" id="platter-title">
+          <span class="platter__name-script">Kusina Salo Salo</span>
+          <span class="platter__name-bold">Family Platter</span>
+        </h2>
+
+        <p class="platter__desc">
+          A comforting Filipino family feast with crispy, tender Crispy Pata, creamy Chicken Tinola sa Gata,
+          fresh Lumpiang Ubod, and four servings of Fried Rice. Complete the gathering with one large
+          bottle of your choice of drink.
+        </p>
+
+        <ul class="platter__list">
+          <li>Crispy Pata &ndash; 1 sharing order</li>
+          <li>Chicken Tinola &ndash; 1 order</li>
+          <li>Fresh Lumpia &ndash; 1 order</li>
+          <li>Fried Rice &ndash; 4 servings</li>
+          <li>Choice of Drink &ndash; 1 large serving (choose one)</li>
+        </ul>
+
+        <div class="platter__price-wrap" aria-label="Price: ₱1,599">
+          <span class="platter__price-label">PRICE</span>
+          <span class="platter__price">&#8369;1,599</span>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- ── Platter 2: Barkada Favorites ── -->
+    <article class="platter__card" aria-label="Kusina Barkada Favorites Platter">
+
+      <div class="platter__imgs" aria-hidden="true">
+        <div class="platter__quad">
+          <img class="platter__quad-img" src="../assets/Foods No BG/Main Dish/sisig.png" alt="">
+          <img class="platter__quad-img" src="../assets/Foods No BG/Main Dish/crispy palabok menu.png" alt="">
+          <img class="platter__quad-img" src="../assets/Foods No BG/Main Dish/garlic bangus belly.png" alt="">
+          <img class="platter__quad-img" src="../assets/Foods No BG/Appetizers/Lumpiang ubod.png" alt="">
+        </div>
+        <img class="platter__drink" src="../assets/softdrinks.png" alt="">
+      </div>
+
+      <div class="platter__content">
+        <h2 class="platter__name">
+          <span class="platter__name-script">Kusina Barkada Favorites</span>
+          <span class="platter__name-bold">Platter</span>
+        </h2>
+
+        <p class="platter__desc">
+          A flavor-packed spread of sizzling Sisig, Crispy Pancit Palabok, garlicky Bangus Belly, and Lumpiang Ubod,
+          with four servings of Fried Rice. Enjoy it with a refreshing drink for the whole group.
+        </p>
+
+        <ul class="platter__list">
+          <li>Sisig &ndash; 1 order</li>
+          <li>Crispy Pancit Palabok &ndash; 1 order</li>
+          <li>Garlic Bangus Belly &ndash; 1 order</li>
+          <li>Lumpiang Ubod &ndash; 1 order</li>
+          <li>Fried Rice &ndash; 4 servings</li>
+          <li>Choice of Drink &ndash; 1 large serving (choose one)</li>
+        </ul>
+
+        <div class="platter__price-wrap" aria-label="Price: ₱1,299">
+          <span class="platter__price-label">PRICE</span>
+          <span class="platter__price">&#8369;1,299</span>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- ── Platter 3: Lutong Bahay Family Feast ── -->
+    <article class="platter__card" aria-label="Kusina Lutong Bahay Family Feast">
+
+      <div class="platter__imgs" aria-hidden="true">
+        <div class="platter__quad">
+          <img class="platter__quad-img" src="../assets/Foods No BG/Main Dish/kare kare.png" alt="">
+          <img class="platter__quad-img" src="../assets/Foods No BG/Main Dish/tinola.png" alt="">
+          <img class="platter__quad-img" src="../assets/Foods No BG/Main Dish/sisig.png" alt="">
+          <img class="platter__quad-img" src="../assets/Foods No BG/fried rice.png" alt="">
+        </div>
+        <img class="platter__drink" src="../assets/softdrinks.png" alt="">
+      </div>
+
+      <div class="platter__content">
+        <h2 class="platter__name">
+          <span class="platter__name-script">Kusina Lutong Bahay</span>
+          <span class="platter__name-bold">Family Feast</span>
+        </h2>
+
+        <p class="platter__desc">
+          Gather around a hearty spread of Creamy Kare-Kare, Chicken Tinola sa Gata, and savory Sisig. Served with
+          five portions of Fried Rice and a refreshing drink, this set brings different Filipino comfort flavors to the table.
+        </p>
+
+        <ul class="platter__list">
+          <li>Creamy Kare-Kare &ndash; 1 order</li>
+          <li>Chicken Tinola sa Gata &ndash; 1 order</li>
+          <li>Sisig &ndash; 1 order</li>
+          <li>Fried Rice &ndash; 5 servings</li>
+          <li>Choice of Drink &ndash; 1 large serving (choose one)</li>
+        </ul>
+
+        <div class="platter__price-wrap" aria-label="Price: ₱1,469">
+          <span class="platter__price-label">PRICE</span>
+          <span class="platter__price">&#8369;1,469</span>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- ── Platter 4: Grand Pamilyang Handaan ── -->
+    <article class="platter__card" aria-label="Kusina Grand Pamilyang Handaan">
+
+      <div class="platter__imgs" aria-hidden="true">
+        <div class="platter__quad">
+          <img class="platter__quad-img" src="../assets/Foods No BG/Main Dish/crispy pata.png" alt="">
+          <img class="platter__quad-img" src="../assets/Foods No BG/Main Dish/kare kare.png" alt="">
+          <img class="platter__quad-img" src="../assets/Foods No BG/Main Dish/crispy palabok menu.png" alt="">
+          <img class="platter__quad-img" src="../assets/Foods No BG/Main Dish/garlic bangus belly.png" alt="">
+        </div>
+        <img class="platter__drink" src="../assets/softdrinks.png" alt="">
+      </div>
+
+      <div class="platter__content">
+        <h2 class="platter__name">
+          <span class="platter__name-script">Kusina Grand Pamilyang</span>
+          <span class="platter__name-bold">Handaan</span>
+        </h2>
+
+        <p class="platter__desc">
+          Celebrate with a generous assortment of Crispy Pata, Creamy Kare-Kare, Crispy Pancit Palabok, Garlic Bangus
+          Belly, and Lumpiang Ubod. Six servings of Fried Rice and a refreshing drink complete this Filipino-style sharing feast.
+        </p>
+
+        <ul class="platter__list">
+          <li>Crispy Pata &ndash; 1 sharing order</li>
+          <li>Creamy Kare-Kare &ndash; 1 order</li>
+          <li>Crispy Pancit Palabok &ndash; 1 order</li>
+          <li>Garlic Bangus Belly &ndash; 1 order</li>
+          <li>Lumpiang Ubod &ndash; 1 order</li>
+          <li>Fried Rice &ndash; 6 servings</li>
+          <li>Choice of Drink &ndash; 1 large serving (choose one)</li>
+        </ul>
+
+        <div class="platter__price-wrap" aria-label="Price: ₱2,299">
+          <span class="platter__price-label">PRICE</span>
+          <span class="platter__price">&#8369;2,299</span>
+        </div>
+      </div>
+
+    </article>
+
+  </section>
+
+  <!-- ── Full Menu Section ── -->
+  <section class="menu-body" id="menu" aria-label="Full menu">
+    
+    <div class="menu-container">
+      
+      <!-- LEFT SIDE: SULIT DEALS -->
+      <aside class="sulit-deals">
+        <div class="sulit-deals__circle">
+          <div class="sulit-deals__header">
+            <h2 class="sulit-deals__title">SULIT</h2>
+            <p class="sulit-deals__subtitle">Deals</p>
+          </div>
+          
+          <div class="sulit-deals__badge">
+            <span class="sulit-deals__badge-label">ONLY</span>
+            <span class="sulit-deals__badge-price">₱340</span>
+            <span class="sulit-deals__badge-old">₱440</span>
+          </div>
+          
+          <div class="sulit-deals__images">
+            <img class="sulit-deals__img-main" src="../assets/Foods No BG/Main Dish/crispy pata.png" alt="Crispy pata">
+            <img class="sulit-deals__img-side" src="../assets/Foods No BG/Appetizers/Lumpiang ubod.png" alt="Fresh Lumpia">
+          </div>
+          
+          <p class="sulit-deals__desc">Enjoy rich and Creamy Kare-Kare alongside Fresh Lumpia.</p>
+        </div>
+      </aside>
+      
+      <!-- RIGHT SIDE: MENU GRID -->
+      <div class="menu-main">
+        <form class="menu-find" role="search" onsubmit="return false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input type="search" name="dish" placeholder="Search" aria-label="Search dishes" autocomplete="off">
+        </form>
+
+        <div class="menu-filters">
+          <button class="filter-btn is-active" data-category="all">All</button>
+          <button class="filter-btn" data-category="breakfast">Breakfast</button>
+          <button class="filter-btn" data-category="appetizers">Appetizers</button>
+          <button class="filter-btn" data-category="main-dishes">Main Dishes</button>
+          <button class="filter-btn" data-category="desserts">Desserts</button>
+          <button class="filter-btn" data-category="drinks">Drinks</button>
+        </div>
+
+        <div class="menu-grid">
+      
+      <!-- BREAKFAST -->
+      <article class="menu-card" data-category="breakfast">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Breakfast/DaingSilog.png" alt="Bangsilog / Daingsilog">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱269</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Savory<span class="menu-card__name-bold">BANGSILOG</span></h3>
+          <p class="menu-card__desc">A Filipino breakfast favorite featuring savory fried bangus or daing, served with fragrant garlic rice and a perfectly cooked egg.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="breakfast">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Breakfast/ube champorado.png" alt="Champorado Ube">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱159</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Sweet<span class="menu-card__name-bold">UBE CHAMPORADO</span></h3>
+          <p class="menu-card__desc">A delightful twist on traditional Champorado, combining soft glutinous rice with the sweet, creamy flavor of purple yam.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="breakfast">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Breakfast/tapsilog.png" alt="Tapsilog">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱259</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Classic<span class="menu-card__name-bold">TAPSILOG</span></h3>
+          <p class="menu-card__desc">Tender, flavorful beef tapa served with fragrant garlic fried rice and a sunny-side-up egg. A timeless Filipino breakfast favorite.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="breakfast">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Breakfast/tocilog.png" alt="Tocilog">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱249</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Sweet<span class="menu-card__name-bold">TOCILOG</span></h3>
+          <p class="menu-card__desc">Sweet and savory pork tocino paired with garlic fried rice and a sunny-side-up egg. A comforting combination of classic Filipino breakfast flavors.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="breakfast">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Breakfast/CornedbeefSilog.png" alt="Cornedbeef Silog">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱229</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Glazed<span class="menu-card__name-bold">CORNEDBEEF SILOG</span></h3>
+          <p class="menu-card__desc">Sugar-glazed corned beef belly, caramelized to a sticky golden crust with brown sugar, mustard, and ketchup, served over smoky garlic fried rice and a runny fried egg.</p>
+        </div>
+      </article>
+
+      <!-- APPETIZERS -->
+      <article class="menu-card" data-category="appetizers">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Appetizers/Lumpiang ubod.png" alt="Fresh Lumpia">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱159</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Fresh<span class="menu-card__name-bold">LUMPIA</span></h3>
+          <p class="menu-card__desc">A fresh Filipino spring roll filled with tender heart of palm and vegetables, wrapped in a delicate crepe and served with a savory sauce.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="appetizers">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Appetizers/Sisig In Pouch.png" alt="Sisig in Pouch">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱289</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Crispy<span class="menu-card__name-bold">SISIG IN POUCH</span></h3>
+          <p class="menu-card__desc">A creative twist on classic Filipino Sisig, featuring flavorful seasoned pork wrapped in crispy golden pouches. Crunchy on the outside and savory on the inside.</p>
+        </div>
+      </article>
+
+      <!-- MAIN DISHES -->
+      <article class="menu-card" data-category="main-dishes">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Main Dish/tinola.png" alt="Chicken Tinola">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱329</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Comforting<span class="menu-card__name-bold">TINOLA</span></h3>
+          <p class="menu-card__desc">Tender chicken simmered in a fragrant ginger broth and vegetables. A comforting twist on traditional Filipino Tinola.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="main-dishes">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Main Dish/kare kare.png" alt="Creamy Kare-Kare">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱449</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Creamy<span class="menu-card__name-bold">KARE KARE</span></h3>
+          <p class="menu-card__desc">A rich and creamy Filipino stew featuring tender meat and vegetables in a flavorful peanut sauce, best enjoyed with traditional bagoong.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="main-dishes">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Main Dish/crispy palabok menu.png" alt="Crispy Pancit Palabok">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱269</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Crispy<span class="menu-card__name-bold">PALABOK</span></h3>
+          <p class="menu-card__desc">A creative take on classic Pancit Palabok featuring crispy noodles topped with a rich savory shrimp sauce, crunchy garnishes, and traditional Filipino flavors.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="main-dishes">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Main Dish/crispy pata.png" alt="Crispy Pata">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱799</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Crispy<span class="menu-card__name-bold">PATA</span></h3>
+          <p class="menu-card__desc">A Filipino favorite featuring deep-fried pork leg with irresistibly crispy skin and tender, juicy meat. Served with a savory dipping sauce and perfect for sharing.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="main-dishes">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Main Dish/garlic bangus belly.png" alt="Garlic Bangus Belly">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱269</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Garlic<span class="menu-card__name-bold">BANGUS BELLY</span></h3>
+          <p class="menu-card__desc">Tender milkfish belly infused with savory garlic flavors, prepared to bring out the natural richness of bangus in every bite.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="main-dishes">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Main Dish/sisig.png" alt="Sisig">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱299</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Sizzling<span class="menu-card__name-bold">SISIG</span></h3>
+          <p class="menu-card__desc">A sizzling Filipino favorite featuring chopped pork seasoned with onions, chilies, and savory spices. A flavorful dish with a satisfying combination of crispy and tender textures.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="main-dishes">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/fried rice.png" alt="Fried Rice">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱89</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Garlic<span class="menu-card__name-bold">FRIED RICE</span></h3>
+          <p class="menu-card__desc">Fragrant rice stir-fried with garlic and seasonings, creating a flavorful side dish that perfectly complements your favorite Filipino meals.</p>
+        </div>
+      </article>
+
+      <!-- DESSERTS -->
+      <article class="menu-card" data-category="desserts">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Desserts/Halo-halo.png" alt="Halo-Halo">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱179</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Refreshing<span class="menu-card__name-bold">HALO-HALO</span></h3>
+          <p class="menu-card__desc">A refreshing Filipino dessert filled with colorful sweet ingredients, crushed ice, creamy milk, and delicious toppings. A delightful mix of flavors and textures in every spoonful.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="desserts">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Desserts/Puto Bumbong.png" alt="Puto Bumbong">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱129</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Traditional<span class="menu-card__name-bold">PUTO BUMBONG</span></h3>
+          <p class="menu-card__desc">Traditional purple rice cakes steamed in bamboo tubes, served warm with butter, grated coconut, and sugar. A beloved Filipino delicacy often enjoyed during the Christmas season.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="desserts">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Desserts/Turon With Ice Cream.png" alt="Turon with Vanilla Ice Cream">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱169</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Sweet<span class="menu-card__name-bold">TURON</span></h3>
+          <p class="menu-card__desc">Crispy golden banana rolls coated with caramelized sugar and served with a scoop of creamy vanilla ice cream. A delicious combination of warm and cold sweetness.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="desserts">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Desserts/Ube Ensaymada.png" alt="Ube Ensaymada">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱85</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Fluffy<span class="menu-card__name-bold">UBE ENSAYMADA</span></h3>
+          <p class="menu-card__desc">Soft and fluffy Filipino sweet bread filled with rich ube flavor and topped with creamy butter, sugar, and grated cheese.</p>
+        </div>
+      </article>
+
+      <!-- DRINKS -->
+      <article class="menu-card" data-category="drinks">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Drinks/buko pandan.png" alt="Buko Pandan">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱149</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Tropical<span class="menu-card__name-bold">BUKO PANDAN</span></h3>
+          <p class="menu-card__desc">A creamy and refreshing drink combining the delicate sweetness of young coconut with the fragrant flavor of pandan. A tropical Filipino favorite.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="drinks">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Drinks/camias + lemon grass.png" alt="Camias + Lemon Grass">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱129</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Tangy<span class="menu-card__name-bold">CAMIAS + LEMONGRASS</span></h3>
+          <p class="menu-card__desc">A unique and refreshing blend of tangy camias and aromatic lemongrass, creating a light tropical drink with a pleasant citrusy kick.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="drinks">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Drinks/mango + pomelo.png" alt="Mango + Pomelo">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱159</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Fruity<span class="menu-card__name-bold">MANGO + POMELO</span></h3>
+          <p class="menu-card__desc">A refreshing tropical drink combining the natural sweetness of ripe mangoes with the light citrusy flavor of pomelo.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="drinks">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Drinks/strawberry + camias.png" alt="Strawberry + Camias">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱179</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Vibrant<span class="menu-card__name-bold">STRAWBERRY + CAMIAS</span></h3>
+          <p class="menu-card__desc">A vibrant blend of sweet strawberries and tangy camias, delivering a delicious balance of fruity sweetness and refreshing sourness.</p>
+        </div>
+      </article>
+
+      <article class="menu-card" data-category="drinks">
+        <div class="menu-card__img">
+          <img src="../assets/Foods No BG/Drinks/Icy Purple Ube Pandan Shake.png" alt="Ube Sago Palamig">
+        </div>
+        <div class="menu-card__price">
+          <span class="menu-card__price-label">PRICE</span>
+          <span class="menu-card__price-amount">₱149</span>
+        </div>
+        <div class="menu-card__content">
+          <h3 class="menu-card__name">Creamy<span class="menu-card__name-bold">UBE SAGO PALAMIG</span></h3>
+          <p class="menu-card__desc">A creamy purple yam drink mixed with chewy sago pearls, offering a refreshing combination of sweetness and satisfying texture.</p>
+        </div>
+      </article>
+
+        </div><!-- .menu-grid -->
+      </div><!-- .menu-main -->
+    </div><!-- .menu-container -->
+  </section>
+</main>
+
+<script src="../script/menu.js"></script>
+</body>
+</html>
