@@ -91,7 +91,7 @@ img{max-width:100%;height:auto}
   container-type:inline-size;
   min-height:max(520px,56vw);
   padding:11.2vw 2.6% 4vw;
-  display:grid;grid-template-columns:1fr;align-items:start;
+  display:grid;grid-template-columns:1fr 1fr;align-items:center;
 }
 
 /* Decorative pink shapes (positions follow the Figma frame) */
@@ -107,8 +107,8 @@ img{max-width:100%;height:auto}
 }
 
 /* Left column: title, blurb, search */
-.menu-hero__copy{position:relative;z-index:1}
-.menu-title{margin:0 0 0 5.4cqw;line-height:1;position:relative}
+.menu-hero__copy{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+.menu-title{margin:0;line-height:1;position:relative;text-align:center}
 .menu-title__our{
   display:block;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;
   font-size:clamp(52px,6.7cqw,240px);
@@ -120,12 +120,12 @@ img{max-width:100%;height:auto}
   margin:-.28em 0 0 .62em;
 }
 .menu-hero__sub{
-  width:38cqw;max-width:100%;margin:1.5cqw 0 0 3.3cqw;padding:0 2cqw;
+  width:100%;max-width:38cqw;margin:1.5cqw 0 0;padding:0 2cqw;
   text-align:center;font-weight:500;line-height:1.35;
   font-size:clamp(14px,1.3cqw,40px);
 }
 .menu-search{
-  width:38cqw;max-width:100%;margin:2.2cqw 0 0 3.3cqw;
+  width:100%;max-width:38cqw;margin:2.2cqw 0 0;
   height:clamp(42px,3.3cqw,90px);padding:0 1.8cqw;
   display:flex;align-items:center;gap:.9cqw;
   background:var(--field);border-radius:999px;
@@ -138,10 +138,11 @@ img{max-width:100%;height:auto}
 }
 .menu-search input::placeholder{color:#6b6262}
 
-/* Right column: food image slot (drop an <img> inside when you have it) */
+/* Right column: food image */
 .menu-hero__media{
-  position:absolute;z-index:1;left:47cqw;top:6.8cqw;
-  width:46.4cqw;aspect-ratio:1;border-radius:50%;
+  position:relative;z-index:1;left:auto;top:auto;
+  width:80%;max-width:46.4cqw;aspect-ratio:1;border-radius:50%;
+  justify-self:center;
 }
 .menu-hero__media img{width:100%;height:100%;object-fit:contain;display:block}
 
@@ -180,13 +181,13 @@ img{max-width:100%;height:auto}
   .nav__pill a.is-active:hover{color:#fff}
   .nav__pill .only-mobile:hover,.nav__pill .only-mobile:focus{background:var(--coral);color:#fff}
 
-  .menu-hero{gap:32px;padding:calc(var(--nav-h) + 24px) 5.3% 48px}
+  .menu-hero{gap:32px;padding:calc(var(--nav-h) + 24px) 5.3% 48px;grid-template-columns:1fr}
   .menu-title{margin-left:0}
   .menu-title__menu{margin-left:.3em}
   .menu-hero__sub,.menu-search{width:100%;margin-left:0}
   .menu-hero__sub{margin-top:20px;padding:0}
   .menu-search{margin-top:20px}
-  .menu-hero__media{position:relative;left:auto;top:auto;width:100%;max-width:360px;justify-self:center}
+  .menu-hero__media{width:100%;max-width:360px;justify-self:center}
 }
 
 @keyframes navDrop{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 -48px 0)}}
@@ -202,9 +203,10 @@ img{max-width:100%;height:auto}
   position:relative;overflow:hidden;
   container-type:inline-size;
   background:var(--paper);
-  padding:4.5vw 0 4vw;
+  padding:4.5vw 5% 4vw;
   display:grid;grid-template-columns:1fr 1fr;
-  row-gap:3vw;
+  gap:3vw 4%;
+  justify-items:center;
 }
 
 /* pink decorative circles from the Figma frame (the big one is cropped by the section) */
@@ -219,7 +221,7 @@ img{max-width:100%;height:auto}
 .platter__card{
   position:relative;z-index:1;
   display:flex;align-items:flex-start;
-  width:42cqw;margin-left:6cqw;
+  width:100%;max-width:42cqw;margin-left:0;
   min-height:19.6cqw;
   padding:2cqw 1.35cqw 2cqw 18.4cqw;     /* left padding = room for the food cluster */
   background:var(--coral);color:#fff;
@@ -710,3 +712,234 @@ img{max-width:100%;height:auto}
   .foot .foot__rule{width:100%;order:5}
   .foot .foot__copy{font-size:12px;order:6}
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   SCREEN A — Mobile Featured Dishes  (Figma node 41:1051, 402×1264px)
+   Hidden on desktop; shown only on mobile (≤860px).
+═══════════════════════════════════════════════════════════════════ */
+
+/* ── hide on desktop, show on mobile ── */
+.mobile-feat{display:none}
+
+@media(max-width:860px){
+
+/* ── section wrapper ── */
+.mobile-feat{
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;overflow-x:hidden;
+  max-width:430px;margin-inline:auto;
+  padding-bottom:48px;background:#fff;
+}
+/* pill and hero-zone align left inside the flex column */
+.mf-pill,.mf-hero-zone{align-self:flex-start;width:100%}
+
+/* ── decorative circles (aria-hidden, pointer-events-none) ── */
+.mf-circles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.mfc{position:absolute;border-radius:50%;background:rgba(253,89,91,0.38)}
+/* Figma (x,y,size): A(226,1124,295) B(-32,471,161) C(263,96,89) D(267,65,31) E(340,492,15) F(58,895,105) */
+.mfc--a{width:295px;height:295px;left:226px;top:1124px}
+.mfc--b{width:161px;height:161px;left:-32px;top:471px}
+.mfc--c{width:89px;height:89px;left:263px;top:96px}
+.mfc--d{width:31px;height:31px;left:267px;top:65px}
+.mfc--e{width:15px;height:15px;left:340px;top:492px}
+.mfc--f{width:105px;height:105px;left:58px;top:895px}
+
+/* ── "SEE DEALS HERE" pill: bleeds off the left at -28px ── */
+.mf-pill{
+  display:flex;align-items:center;
+  position:relative;left:-28px;
+  margin-top:96px;width:164px;min-height:44px;height:39px;
+  background:#FEC0C1;border-radius:100px;text-decoration:none;
+}
+.mf-pill__text{
+  position:absolute;left:36px;top:50%;transform:translateY(-50%);
+  font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:14px;line-height:17px;
+  color:#000;white-space:nowrap;
+}
+.mf-pill:focus-visible{outline:3px solid #111;outline-offset:3px;border-radius:100px}
+
+/* ── reserved hero zone (~290px, per Figma spec y:150–438) ── */
+.mf-hero-zone{height:290px;position:relative;z-index:1}
+
+/* ── individual card: 318×292, primary bg, radius 15 ── */
+.mf-card{
+  position:relative;width:318px;max-width:calc(100vw - 84px);min-width:280px;
+  height:292px;background:#FD595B;border-radius:15px;flex:none;overflow:visible;
+}
+.mf-card+.mf-card{margin-top:124px}
+
+/* ── dish image box ── */
+.mf-card__img-box{position:absolute;pointer-events:none;z-index:2}
+
+/* sisig: box 346×271 at card-relative (-9,-118), img 303×188 rotated -17.55deg */
+.mf-card--sisig .mf-card__img-box{
+  width:346px;height:271px;left:-9px;top:-118px;
+  display:flex;align-items:center;justify-content:center;
+}
+.mf-card--sisig .mf-card__img-box img{
+  width:303px;height:188px;object-fit:contain;
+  transform:rotate(-17.55deg);transform-origin:center;flex:none;
+}
+/* tinola: 231×215 at (50,-91) */
+.mf-card--tinola .mf-card__img-box{width:231px;height:215px;left:50px;top:-91px}
+.mf-card--tinola .mf-card__img-box img{width:100%;height:100%;object-fit:contain}
+
+/* ── script + name lockup: name-wrap at card (12,97), script 65px, name below ── */
+.mf-card__name-wrap{position:absolute;left:12px;top:97px;z-index:3;overflow:visible}
+.mf-card__script{
+  display:block;font-family:'Luxurious Script','Snell Roundhand',cursive;
+  font-weight:400;font-size:65px;line-height:78px;color:#fff;white-space:nowrap;
+}
+.mf-card__name{
+  position:absolute;top:55px;
+  font-family:'Inter',system-ui,sans-serif;font-weight:800;
+  font-size:24px;line-height:29px;color:#fff;white-space:nowrap;margin:0;
+}
+/* sisig name: card (87,152) → wrap-relative left 75 */
+.mf-card--sisig .mf-card__name{left:75px}
+/* tinola name: card (109,152) → wrap-relative left 97 */
+.mf-card--tinola .mf-card__name{left:97px}
+
+/* ── description: card-relative left:21 top:187 width:273 ── */
+.mf-card__desc{
+  position:absolute;left:21px;top:187px;width:273px;
+  font-family:'Huninn',system-ui,sans-serif;font-weight:400;
+  font-size:14px;line-height:16px;color:#fff;z-index:3;margin:0;
+}
+
+/* ── price badge: card-relative left:197 top:32, 98×100 ── */
+.mf-card__price{
+  position:absolute;left:197px;top:32px;width:98px;height:100px;
+  background:url('../assets/price bg.png') center/100% 100% no-repeat;
+  z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.mf-card__price-label{
+  font-family:'Huninn',system-ui,sans-serif;font-weight:400;
+  font-size:10px;line-height:11px;text-align:center;
+  color:#4E814B;margin-bottom:4px;letter-spacing:.03em;text-transform:uppercase;
+}
+.mf-card__price-amount{display:flex;align-items:baseline}
+.mf-card__price-peso{font-family:'Farsan',system-ui,sans-serif;font-size:20px;line-height:24px;color:#4E814B;font-weight:400}
+.mf-card__price-num{font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:24px;line-height:29px;color:#4E814B}
+
+} /* end Screen A @media */
+
+/* ═══════════════════════════════════════════════════════════════════
+   SCREEN B — Mobile Full Menu  (Figma node 41:918, 402×1883px)
+   .mm-circles: decorative circles inside .menu-hero (hidden desktop)
+   .mm-platters-mobile: Figma-style platter cards (hidden desktop)
+═══════════════════════════════════════════════════════════════════ */
+
+/* ── circles: hidden on desktop ── */
+.mm-circles{display:none}
+
+/* ── mobile platter section: hidden on desktop ── */
+.mm-platters-mobile{display:none}
+
+@media(max-width:860px){
+
+/* clip sideways only; circles can still extend below the hero */
+.menu-hero{overflow-x:clip;overflow-y:visible}
+
+/* desktop decorations are replaced by .mm-circles on mobile */
+.deco{display:none}
+
+/* ── circles inside .menu-hero ── */
+.mm-circles{
+  display:block;
+  position:absolute;
+  left:0;top:0;width:100%;height:700px;
+  pointer-events:none;z-index:0;overflow:visible;
+}
+.mc{position:absolute;border-radius:50%;background:rgba(253,89,91,0.38)}
+/* Absolute coords (Figma group at -87,54 + inner ellipse coords):
+   big:  left=114 top=365   hole: left=175 top=426 (white)
+   tr:   left=252 top=108   tl:  left=-174 top=227 (bleeds)  sm: left=275 top=248 */
+.mc--big {width:322px;height:322px;left:114px;top:365px}
+.mc--hole{width:200px;height:200px;left:175px;top:426px;background:#fff}
+.mc--tr  {width:126px;height:126px;left:252px;top:108px}
+.mc--tl  {width:126px;height:126px;left:-174px;top:227px}
+.mc--sm  {width:28px; height:28px; left:275px; top:248px}
+
+/* ── mobile platter section ── */
+.mm-platters-mobile{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  position:relative;
+  overflow-x:hidden;
+  max-width:430px;
+  margin-inline:auto;
+  padding-bottom:40px;
+  background:#fff;
+}
+
+/* ── individual platter card ── */
+.mm-card{
+  position:relative;
+  width:370px;
+  max-width:calc(100vw - 32px);
+  height:271px;
+  background:#FD595B;
+  border-radius:20px;
+  /* 30px gap between cards + 20px for price badge bottom overflow */
+  margin-bottom:50px;
+  flex:none;
+  overflow:visible;
+}
+
+/* ── food collage images ── */
+.mm-card__kk{position:absolute;width:106px;height:107px;left:38px;top:48px;z-index:1;object-fit:contain}
+.mm-card__pb-wrap{position:absolute;width:106px;height:111px;left:-16px;top:98px;z-index:1;overflow:hidden}
+.mm-card__pb-wrap img{display:block;width:100%;height:143.13%;object-fit:cover;position:absolute;top:-43.13%;left:0}
+.mm-card__fr{position:absolute;width:104px;height:100px;left:74px;top:136px;z-index:3;object-fit:contain}
+.mm-card__drinks{position:absolute;width:75px;height:98px;left:148px;top:66px;z-index:4;object-fit:contain}
+
+/* ── script + name lockup ── */
+/* script "Family" at card-relative (144,0); name at (219,55) */
+.mm-card__name-wrap{position:absolute;left:144px;top:0;z-index:3;overflow:visible}
+.mm-card__script{
+  display:block;
+  font-family:'Luxurious Script','Snell Roundhand',cursive;
+  font-weight:400;font-size:65px;line-height:78px;color:#fff;white-space:nowrap;
+}
+/* name: 219-144=75px from wrap left, top 55 */
+.mm-card__name{
+  position:absolute;left:75px;top:55px;
+  font-family:'Inter',system-ui,sans-serif;font-weight:800;
+  font-size:24px;line-height:29px;color:#fff;white-space:nowrap;margin:0;
+}
+/* description: card-relative (219,86), width 145 */
+.mm-card__desc{
+  position:absolute;left:219px;top:86px;width:145px;
+  font-family:'Huninn',system-ui,sans-serif;font-weight:400;
+  font-size:14px;line-height:16px;color:#fff;z-index:3;margin:0;
+}
+
+/* ── price badge: card-relative (279,191), 98×100 ── */
+.mm-card__price{
+  position:absolute;left:279px;top:191px;
+  width:98px;height:100px;
+  background:url('../assets/price bg.png') center/100% 100% no-repeat;
+  z-index:5;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.mm-card__price-label{
+  font-family:'Huninn',system-ui,sans-serif;font-weight:400;
+  font-size:10px;line-height:11px;text-align:center;
+  color:#4E814B;margin-bottom:4px;letter-spacing:.03em;text-transform:uppercase;
+}
+.mm-card__price-amount{display:flex;align-items:baseline}
+.mm-card__price-peso{
+  font-family:'Farsan',system-ui,sans-serif;font-size:20px;
+  line-height:24px;color:#4E814B;font-weight:400;
+}
+.mm-card__price-num{
+  font-family:'Inter',system-ui,sans-serif;font-weight:700;
+  font-size:24px;line-height:29px;color:#4E814B;
+}
+
+/* hide last card's bottom margin */
+.mm-card:last-child{margin-bottom:0}
+
+} /* end @media(max-width:860px) */
