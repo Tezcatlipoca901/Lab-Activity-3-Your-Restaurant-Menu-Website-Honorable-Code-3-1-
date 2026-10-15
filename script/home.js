@@ -35,3 +35,27 @@
   nav.querySelectorAll('.nav__pill a').forEach(function(a){ a.addEventListener('click',function(){ setOpen(false); }); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') setOpen(false); });
 })();
+/* Navbar: add a white background once the hero is behind it, so page content doesn't show through the links */
+(function(){
+  var nav=document.getElementById('nav'), hero=document.getElementById('home');
+  if(!nav||!hero) return;
+  function update(){ nav.classList.toggle('is-solid', hero.getBoundingClientRect().bottom <= nav.offsetHeight); }
+  update();
+  addEventListener('scroll',update,{passive:true});
+  addEventListener('resize',update);
+})();
+
+/* Menu search: hides cards that don't match. Uses its own class, so it works together with the category filters. */
+(function(){
+  var input=document.querySelector('.menu-find input');
+  if(!input) return;
+  var cards=document.querySelectorAll('.menu-card');
+  input.addEventListener('input',function(){
+    var q=input.value.trim().toLowerCase();
+    cards.forEach(function(card){
+      var name=card.querySelector('.menu-card__name').textContent.toLowerCase();
+      var desc=card.querySelector('.menu-card__desc').textContent.toLowerCase();
+      card.classList.toggle('is-unmatched', q!=='' && name.indexOf(q)===-1 && desc.indexOf(q)===-1);
+    });
+  });
+})();
