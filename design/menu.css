@@ -565,23 +565,9 @@ img{max-width:100%;height:auto}
 /* PNGs with lots of empty padding look small; --img-scale enlarges them.
    The real fix is cropping those PNGs to the dish. */
 .menu-card__img img[src*="ube champorado"]{--img-scale:2.2}
-.menu-card__img img[src*="tapsilog"]{--img-scale:2.2}
+.menu-card__img img[src*="tapsilog"]{--img-scale:1.8}
 .menu-card__img img[src*="tocilog"]{--img-scale:2.2}
 .menu-card__img img[src*="CornedbeefSilog"]{--img-scale:2.2}
-.menu-card__img img[src*="buko pandan"]{--img-scale:1.8}
-.menu-card__img img[src*="camias + lemon"]{--img-scale:1.8}
-.menu-card__img img[src*="mango + pomelo"]{--img-scale:2.0}
-.menu-card__img img[src*="strawberry + camias"]{--img-scale:2.3}
-.menu-card__img img[src*="Icy Purple"]{--img-scale:1.4}
-.menu-card__img img[src*="Turon With Ice Cream"]{--img-scale:1.3}
-.menu-card__img img[src*="Puto Bumbong"]{--img-scale:1.3}
-.menu-card__img img[src*="Halo-halo"]{--img-scale:1.3}
-.menu-card__img img[src*="crispy palabok"]{--img-scale:1.5}
-.menu-card__img img[src*="kare kare"]{--img-scale:1.2}
-.menu-card__img img[src*="tinola"]{--img-scale:1.15}
-.menu-card__img img[src*="crispy pata"]{--img-scale:1.15}
-.menu-card__img img[src*="garlic bangus"]{--img-scale:1.2}
-.menu-card__img img[src*="Sisig In Pouch"]{--img-scale:1.15}
 
 /* price badge */
 .menu-card__price{
@@ -606,14 +592,14 @@ img{max-width:100%;height:auto}
 .menu-card__name{
   margin:0 0 calc(var(--u) * .4) calc(var(--u) * -.35);
   font-family:var(--script);font-weight:400;color:#fff;
-  font-size:max(38px,calc(var(--u) * 4.6));line-height:1;
+  font-size:max(40px,calc(var(--u) * 5.0));line-height:1;
 }
 .menu-card__name-bold{
   display:block;
   margin-top:calc(var(--u) * -.1);
   padding-left:calc(var(--u) * .5);
   font-family:var(--sans);font-weight:700;text-transform:uppercase;
-  font-size:max(17px,calc(var(--u) * 1.9));letter-spacing:.02em;line-height:1.1;
+  font-size:max(18px,calc(var(--u) * 2.1));letter-spacing:.02em;line-height:1.1;
   text-align:left;
 }
 .menu-card__desc{
@@ -869,6 +855,21 @@ img{max-width:100%;height:auto}
   .foot__cta{position:relative;left:auto;top:auto;width:auto;height:50px;padding:0 32px;font-size:15px;order:4}
   .foot .foot__rule{width:100%;order:5}
   .foot .foot__copy{font-size:12px;order:6}
+
+  .menu-card__img img[src*="buko pandan"]{--img-scale:1.8}
+  .menu-card__img img[src*="camias + lemon"]{--img-scale:1.8}
+  .menu-card__img img[src*="mango + pomelo"]{--img-scale:2.0}
+  .menu-card__img img[src*="strawberry + camias"]{--img-scale:2.3}
+  .menu-card__img img[src*="Icy Purple"]{--img-scale:1.4}
+  .menu-card__img img[src*="Turon With Ice Cream"]{--img-scale:1.3}
+  .menu-card__img img[src*="Puto Bumbong"]{--img-scale:1.3}
+  .menu-card__img img[src*="Halo-halo"]{--img-scale:1.3}
+  .menu-card__img img[src*="crispy palabok"]{--img-scale:1.5}
+  .menu-card__img img[src*="kare kare"]{--img-scale:1.2}
+  .menu-card__img img[src*="tinola"]{--img-scale:1.15}
+  .menu-card__img img[src*="crispy pata"]{--img-scale:1.15}
+  .menu-card__img img[src*="garlic bangus"]{--img-scale:1.2}
+  .menu-card__img img[src*="Sisig In Pouch"]{--img-scale:1.15}
 }
 @keyframes navDrop{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 -48px 0)}}
 
