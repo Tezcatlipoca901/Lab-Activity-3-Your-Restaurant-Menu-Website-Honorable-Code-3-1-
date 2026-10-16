@@ -19,9 +19,9 @@
     <a class="nav__logo" href="home.html" aria-label="Kusina, back to top"><img src="../assets/logo.webp" alt="Kusina." width="1600" height="636"></a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><span></span></button>
     <nav class="nav__pill" id="nav-links" aria-label="Primary">
-      <a href="#home" class="is-active" style="--c:9.05%" aria-current="true">Home</a>
+      <a href="#overview" class="is-active" style="--c:9.05%" aria-current="true">Overview</a>
       <a href="#platter" style="--c:50%">Family Platter</a>
-      <a href="#menu" style="--c:90.9%">Menu</a>
+      <a href="#menu" style="--c:90.9%">Deals &amp; Menu</a>
       <a class="only-mobile" href="home.html">← Back to Home</a>
     </nav>
     <a class="btn nav__cta" href="home.html">Back to Home</a>
@@ -29,7 +29,7 @@
 </header>
 
 <main>
-  <section class="menu-hero" id="home" aria-labelledby="menu-title">
+  <section class="menu-hero" id="overview" aria-labelledby="menu-title">
     <!-- decorative shapes (desktop) -->
     <span class="deco deco--ring" aria-hidden="true"></span>
     <span class="deco deco--c1" aria-hidden="true"></span>
@@ -91,17 +91,17 @@
         </h2>
 
         <p class="platter__desc">
-          A comforting Filipino family feast with crispy, tender Crispy Pata, creamy Chicken Tinola sa Gata,
-          fresh Lumpiang Ubod, and four servings of Fried Rice. Complete the gathering with one large
-          bottle of your choice of drink.
+          A family feast for the whole table, with a large drink to complete it.
         </p>
+
+        <p class="platter__serves">Good for 3&ndash;4 people</p>
 
         <ul class="platter__list">
           <li>Crispy Pata &ndash; 1 sharing order</li>
           <li>Chicken Tinola &ndash; 1 order</li>
           <li>Fresh Lumpia &ndash; 1 order</li>
           <li>Fried Rice &ndash; 4 servings</li>
-          <li>Choice of Drink &ndash; 1 large serving (choose one)</li>
+          <li>Large Drink &ndash; your choice</li>
         </ul>
 
         <div class="platter__price-wrap" aria-label="Price: ₱1,599">
@@ -132,9 +132,10 @@
         </h2>
 
         <p class="platter__desc">
-          A flavor-packed spread of sizzling Sisig, Crispy Pancit Palabok, garlicky Bangus Belly, and Lumpiang Ubod,
-          with four servings of Fried Rice. Enjoy it with a refreshing drink for the whole group.
+          A flavor-packed spread to share with the whole barkada, with a drink to match.
         </p>
+
+        <p class="platter__serves">Good for 3&ndash;4 people</p>
 
         <ul class="platter__list">
           <li>Sisig &ndash; 1 order</li>
@@ -142,7 +143,7 @@
           <li>Garlic Bangus Belly &ndash; 1 order</li>
           <li>Lumpiang Ubod &ndash; 1 order</li>
           <li>Fried Rice &ndash; 4 servings</li>
-          <li>Choice of Drink &ndash; 1 large serving (choose one)</li>
+          <li>Large Drink &ndash; your choice</li>
         </ul>
 
         <div class="platter__price-wrap" aria-label="Price: ₱1,299">
@@ -173,16 +174,17 @@
         </h2>
 
         <p class="platter__desc">
-          Gather around a hearty spread of Creamy Kare-Kare, Chicken Tinola sa Gata, and savory Sisig. Served with
-          five portions of Fried Rice and a refreshing drink, this set brings different Filipino comfort flavors to the table.
+          A hearty spread of Filipino comfort favorites, made for the whole family.
         </p>
+
+        <p class="platter__serves">Good for 4&ndash;5 people</p>
 
         <ul class="platter__list">
           <li>Creamy Kare-Kare &ndash; 1 order</li>
           <li>Chicken Tinola sa Gata &ndash; 1 order</li>
           <li>Sisig &ndash; 1 order</li>
           <li>Fried Rice &ndash; 5 servings</li>
-          <li>Choice of Drink &ndash; 1 large serving (choose one)</li>
+          <li>Large Drink &ndash; your choice</li>
         </ul>
 
         <div class="platter__price-wrap" aria-label="Price: ₱1,469">
@@ -213,9 +215,10 @@
         </h2>
 
         <p class="platter__desc">
-          Celebrate with a generous assortment of Crispy Pata, Creamy Kare-Kare, Crispy Pancit Palabok, Garlic Bangus
-          Belly, and Lumpiang Ubod. Six servings of Fried Rice and a refreshing drink complete this Filipino-style sharing feast.
+          A generous sharing feast for big celebrations and bigger appetites.
         </p>
+
+        <p class="platter__serves">Good for 5&ndash;6 people</p>
 
         <ul class="platter__list">
           <li>Crispy Pata &ndash; 1 sharing order</li>
@@ -224,7 +227,7 @@
           <li>Garlic Bangus Belly &ndash; 1 order</li>
           <li>Lumpiang Ubod &ndash; 1 order</li>
           <li>Fried Rice &ndash; 6 servings</li>
-          <li>Choice of Drink &ndash; 1 large serving (choose one)</li>
+          <li>Large Drink &ndash; your choice</li>
         </ul>
 
         <div class="platter__price-wrap" aria-label="Price: ₱2,299">
@@ -327,33 +330,46 @@
           </div>
 
           <!-- Carousel dots (wired up by menu.js) -->
-          <div class="sulit-deals__dots" role="tablist" aria-label="Choose a Sulit Deal">
-            <button type="button" class="sulit-deals__dot is-active" role="tab" aria-selected="true" aria-label="Deal 1: Sulit Silog Refresh"></button>
-            <button type="button" class="sulit-deals__dot" role="tab" aria-selected="false" aria-label="Deal 2: Pinoy Classics Combo"></button>
-            <button type="button" class="sulit-deals__dot" role="tab" aria-selected="false" aria-label="Deal 3: Sizzling Sarap Deal"></button>
-            <button type="button" class="sulit-deals__dot" role="tab" aria-selected="false" aria-label="Deal 4: Ube Morning Treat"></button>
-            <button type="button" class="sulit-deals__dot" role="tab" aria-selected="false" aria-label="Deal 5: Gata Comfort Combo"></button>
+          <div class="sulit-deals__nav">
+            <button type="button" class="sulit-deals__arrow sulit-deals__arrow--prev" aria-label="Previous deal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <div class="sulit-deals__dots" role="tablist" aria-label="Choose a Sulit Deal">
+              <button type="button" class="sulit-deals__dot is-active" role="tab" aria-selected="true" aria-label="Deal 1: Sulit Silog Refresh"></button>
+              <button type="button" class="sulit-deals__dot" role="tab" aria-selected="false" aria-label="Deal 2: Pinoy Classics Combo"></button>
+              <button type="button" class="sulit-deals__dot" role="tab" aria-selected="false" aria-label="Deal 3: Sizzling Sarap Deal"></button>
+              <button type="button" class="sulit-deals__dot" role="tab" aria-selected="false" aria-label="Deal 4: Ube Morning Treat"></button>
+              <button type="button" class="sulit-deals__dot" role="tab" aria-selected="false" aria-label="Deal 5: Gata Comfort Combo"></button>
+            </div>
+            <button type="button" class="sulit-deals__arrow sulit-deals__arrow--next" aria-label="Next deal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
           </div>
         </div>
       </aside>
       
       <!-- RIGHT SIDE: MENU GRID -->
       <div class="menu-main">
+        <div class="menu-sticky">
         <form class="menu-find" role="search" onsubmit="return false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-          <input type="search" name="dish" placeholder="Search" aria-label="Search dishes" autocomplete="off">
-        </form>
-
-        <div class="menu-filters">
-          <button class="filter-btn is-active" data-category="all">All</button>
-          <button class="filter-btn" data-category="breakfast">Breakfast</button>
-          <button class="filter-btn" data-category="appetizers">Appetizers</button>
-          <button class="filter-btn" data-category="main-dishes">Main Dishes</button>
-          <button class="filter-btn" data-category="desserts">Desserts</button>
-          <button class="filter-btn" data-category="drinks">Drinks</button>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <input type="search" name="dish" placeholder="Search" aria-label="Search dishes" autocomplete="off">
+          </form>
+  
+          <div class="menu-filters">
+            <button class="filter-btn is-active" data-category="all">All</button>
+            <button class="filter-btn" data-category="breakfast">Breakfast</button>
+            <button class="filter-btn" data-category="appetizers">Appetizers</button>
+            <button class="filter-btn" data-category="main-dishes">Main Dishes</button>
+            <button class="filter-btn" data-category="desserts">Desserts</button>
+            <button class="filter-btn" data-category="drinks">Drinks</button>
+          </div>
         </div>
 
         <div class="menu-grid">
+      <!-- shown by menu.js when a search matches nothing -->
+      <div class="menu-empty" role="status" aria-live="polite" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <p class="menu-empty__title">No dishes found<span class="menu-empty__term"></span></p>
+        <p class="menu-empty__hint">Check the spelling or try a different dish name.</p>
+      </div>
+
       
       <!-- BREAKFAST -->
       <article class="menu-card" data-category="breakfast">
@@ -366,7 +382,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Savory<span class="menu-card__name-bold">BANGSILOG</span></h3>
-          <p class="menu-card__desc">A Filipino breakfast favorite featuring savory fried bangus or daing, served with fragrant garlic rice and a perfectly cooked egg.</p>
+          <p class="menu-card__desc">Fried bangus or daing with garlic rice and a perfectly cooked egg.</p>
         </div>
       </article>
 
@@ -380,7 +396,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Sweet<span class="menu-card__name-bold">UBE CHAMPORADO</span></h3>
-          <p class="menu-card__desc">A delightful twist on traditional Champorado, combining soft glutinous rice with the sweet, creamy flavor of purple yam.</p>
+          <p class="menu-card__desc">Soft glutinous rice champorado with the creamy sweetness of purple yam.</p>
         </div>
       </article>
 
@@ -394,7 +410,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Classic<span class="menu-card__name-bold">TAPSILOG</span></h3>
-          <p class="menu-card__desc">Tender, flavorful beef tapa served with fragrant garlic fried rice and a sunny-side-up egg. A timeless Filipino breakfast favorite.</p>
+          <p class="menu-card__desc">Tender beef tapa with garlic fried rice and a sunny-side-up egg.</p>
         </div>
       </article>
 
@@ -408,7 +424,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Sweet<span class="menu-card__name-bold">TOCILOG</span></h3>
-          <p class="menu-card__desc">Sweet and savory pork tocino paired with garlic fried rice and a sunny-side-up egg. A comforting combination of classic Filipino breakfast flavors.</p>
+          <p class="menu-card__desc">Sweet and savory pork tocino with garlic fried rice and a sunny-side-up egg.</p>
         </div>
       </article>
 
@@ -422,7 +438,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Glazed<span class="menu-card__name-bold">CORNEDBEEF SILOG</span></h3>
-          <p class="menu-card__desc">Sugar-glazed corned beef belly, caramelized to a sticky golden crust with brown sugar, mustard, and ketchup, served over smoky garlic fried rice and a runny fried egg.</p>
+          <p class="menu-card__desc">Sugar-glazed corned beef belly over garlic fried rice with a runny egg.</p>
         </div>
       </article>
 
@@ -437,7 +453,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Fresh<span class="menu-card__name-bold">LUMPIA</span></h3>
-          <p class="menu-card__desc">A fresh Filipino spring roll filled with tender heart of palm and vegetables, wrapped in a delicate crepe and served with a savory sauce.</p>
+          <p class="menu-card__desc">Fresh spring roll with heart of palm and vegetables in a delicate crepe.</p>
         </div>
       </article>
 
@@ -451,7 +467,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Crispy<span class="menu-card__name-bold">SISIG IN POUCH</span></h3>
-          <p class="menu-card__desc">A creative twist on classic Filipino Sisig, featuring flavorful seasoned pork wrapped in crispy golden pouches. Crunchy on the outside and savory on the inside.</p>
+          <p class="menu-card__desc">Seasoned pork sisig in crispy golden pouches, crunchy outside and savory inside.</p>
         </div>
       </article>
 
@@ -466,7 +482,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Comforting<span class="menu-card__name-bold">TINOLA</span></h3>
-          <p class="menu-card__desc">Tender chicken simmered in a fragrant ginger broth and vegetables. A comforting twist on traditional Filipino Tinola.</p>
+          <p class="menu-card__desc">Tender chicken simmered in a fragrant ginger broth with vegetables.</p>
         </div>
       </article>
 
@@ -480,7 +496,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Creamy<span class="menu-card__name-bold">KARE KARE</span></h3>
-          <p class="menu-card__desc">A rich and creamy Filipino stew featuring tender meat and vegetables in a flavorful peanut sauce, best enjoyed with traditional bagoong.</p>
+          <p class="menu-card__desc">Tender meat and vegetables in a rich peanut sauce, served with bagoong.</p>
         </div>
       </article>
 
@@ -494,7 +510,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Crispy<span class="menu-card__name-bold">PALABOK</span></h3>
-          <p class="menu-card__desc">A creative take on classic Pancit Palabok featuring crispy noodles topped with a rich savory shrimp sauce, crunchy garnishes, and traditional Filipino flavors.</p>
+          <p class="menu-card__desc">Crispy noodles topped with a rich savory shrimp sauce and crunchy garnishes.</p>
         </div>
       </article>
 
@@ -508,7 +524,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Crispy<span class="menu-card__name-bold">PATA</span></h3>
-          <p class="menu-card__desc">A Filipino favorite featuring deep-fried pork leg with irresistibly crispy skin and tender, juicy meat. Served with a savory dipping sauce and perfect for sharing.</p>
+          <p class="menu-card__desc">Deep-fried pork leg with crispy skin and juicy meat, served with dipping sauce.</p>
         </div>
       </article>
 
@@ -522,7 +538,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Garlic<span class="menu-card__name-bold">BANGUS BELLY</span></h3>
-          <p class="menu-card__desc">Tender milkfish belly infused with savory garlic flavors, prepared to bring out the natural richness of bangus in every bite.</p>
+          <p class="menu-card__desc">Tender milkfish belly infused with savory garlic flavors.</p>
         </div>
       </article>
 
@@ -536,7 +552,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Sizzling<span class="menu-card__name-bold">SISIG</span></h3>
-          <p class="menu-card__desc">A sizzling Filipino favorite featuring chopped pork seasoned with onions, chilies, and savory spices. A flavorful dish with a satisfying combination of crispy and tender textures.</p>
+          <p class="menu-card__desc">Chopped pork seasoned with onions, chilies, and spices, crispy and tender.</p>
         </div>
       </article>
 
@@ -550,7 +566,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Garlic<span class="menu-card__name-bold">FRIED RICE</span></h3>
-          <p class="menu-card__desc">Fragrant rice stir-fried with garlic and seasonings, creating a flavorful side dish that perfectly complements your favorite Filipino meals.</p>
+          <p class="menu-card__desc">Fragrant garlic fried rice, the perfect side for any Filipino meal.</p>
         </div>
       </article>
 
@@ -565,7 +581,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Refreshing<span class="menu-card__name-bold">HALO-HALO</span></h3>
-          <p class="menu-card__desc">A refreshing Filipino dessert filled with colorful sweet ingredients, crushed ice, creamy milk, and delicious toppings. A delightful mix of flavors and textures in every spoonful.</p>
+          <p class="menu-card__desc">Colorful sweet toppings, crushed ice, and creamy milk in every spoonful.</p>
         </div>
       </article>
 
@@ -579,7 +595,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Traditional<span class="menu-card__name-bold">PUTO BUMBONG</span></h3>
-          <p class="menu-card__desc">Traditional purple rice cakes steamed in bamboo tubes, served warm with butter, grated coconut, and sugar. A beloved Filipino delicacy often enjoyed during the Christmas season.</p>
+          <p class="menu-card__desc">Purple rice cakes steamed in bamboo, served with butter, coconut, and sugar.</p>
         </div>
       </article>
 
@@ -593,7 +609,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Sweet<span class="menu-card__name-bold">TURON</span></h3>
-          <p class="menu-card__desc">Crispy golden banana rolls coated with caramelized sugar and served with a scoop of creamy vanilla ice cream. A delicious combination of warm and cold sweetness.</p>
+          <p class="menu-card__desc">Crispy caramelized banana rolls with a scoop of vanilla ice cream.</p>
         </div>
       </article>
 
@@ -607,7 +623,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Fluffy<span class="menu-card__name-bold">UBE ENSAYMADA</span></h3>
-          <p class="menu-card__desc">Soft and fluffy Filipino sweet bread filled with rich ube flavor and topped with creamy butter, sugar, and grated cheese.</p>
+          <p class="menu-card__desc">Soft sweet bread filled with ube, topped with butter, sugar, and cheese.</p>
         </div>
       </article>
 
@@ -622,7 +638,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Tropical<span class="menu-card__name-bold">BUKO PANDAN</span></h3>
-          <p class="menu-card__desc">A creamy and refreshing drink combining the delicate sweetness of young coconut with the fragrant flavor of pandan. A tropical Filipino favorite.</p>
+          <p class="menu-card__desc">Creamy young coconut drink with the fragrant flavor of pandan.</p>
         </div>
       </article>
 
@@ -636,7 +652,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Tangy<span class="menu-card__name-bold">CAMIAS + LEMONGRASS</span></h3>
-          <p class="menu-card__desc">A unique and refreshing blend of tangy camias and aromatic lemongrass, creating a light tropical drink with a pleasant citrusy kick.</p>
+          <p class="menu-card__desc">Tangy camias and aromatic lemongrass in a light, citrusy drink.</p>
         </div>
       </article>
 
@@ -650,7 +666,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Fruity<span class="menu-card__name-bold">MANGO + POMELO</span></h3>
-          <p class="menu-card__desc">A refreshing tropical drink combining the natural sweetness of ripe mangoes with the light citrusy flavor of pomelo.</p>
+          <p class="menu-card__desc">Sweet ripe mango with the light citrusy flavor of pomelo.</p>
         </div>
       </article>
 
@@ -664,7 +680,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Vibrant<span class="menu-card__name-bold">STRAWBERRY + CAMIAS</span></h3>
-          <p class="menu-card__desc">A vibrant blend of sweet strawberries and tangy camias, delivering a delicious balance of fruity sweetness and refreshing sourness.</p>
+          <p class="menu-card__desc">Sweet strawberries and tangy camias in a refreshing fruity drink.</p>
         </div>
       </article>
 
@@ -678,7 +694,7 @@
         </div>
         <div class="menu-card__content">
           <h3 class="menu-card__name">Creamy<span class="menu-card__name-bold">UBE SAGO PALAMIG</span></h3>
-          <p class="menu-card__desc">A creamy purple yam drink mixed with chewy sago pearls, offering a refreshing combination of sweetness and satisfying texture.</p>
+          <p class="menu-card__desc">Creamy purple yam drink with chewy sago pearls.</p>
         </div>
       </article>
 
@@ -698,7 +714,7 @@
     <a href="home.html#featured" style="--c:73.7%">Featured Dishes</a>
     <a href="home.html#contact" style="--c:86.7%">Contact</a>
   </nav>
-  <a class="btn foot__cta" href="#menu">Explore Our Menu</a>
+  <a class="btn foot__cta" href="home.html">Back to Home</a>
   <div class="p foot__rule" aria-hidden="true"></div>
   <p class="p foot__copy">© 2026 Kusina. All rights reserved.</p>
 </footer>
