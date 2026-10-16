@@ -722,9 +722,54 @@ img{max-width:100%;height:auto}
     display:block;width:auto;max-width:none;margin:0;min-height:0;
     padding:calc(min(70vw,420px) * .95 - 7vw) 20px 24px;
   }
+  /* ─── Mobile platter image layout ───────────────────────────────
+     To MOVE  an image: change margin-top / margin-left on its rule.
+     To RESIZE an image: change width / height on its rule.
+     All % values are relative to .platter__imgs (min(70vw,420px) square).
+  ──────────────────────────────────────────────────────────────── */
   .platter__imgs{
     left:50%;top:-10vw;transform:translateX(-50%);
-    width:min(70vw,420px);height:auto;aspect-ratio:21.9 / 20.9;
+    /* same value for width AND height so % margins/positions work */
+    width:min(70vw,420px);height:min(70vw,420px);
+    position:absolute;overflow:visible;
+  }
+  /* __quad fills the box — children use position:absolute inside it */
+  .platter__quad{position:absolute;inset:0}
+
+  /* img 1 — big plate, top-left */
+  .platter__quad-img:nth-child(1){
+    position:absolute;
+    left:0;    top:0;
+    width:53%; height:50%;
+    z-index:1;
+  }
+  /* img 2 — bowl, top-right */
+  .platter__quad-img:nth-child(2){
+    position:absolute;
+    left:50%;  top:5%;
+    width:50%; height:48%;
+    z-index:1;
+  }
+  /* img 3 — front centre plate */
+  .platter__quad-img:nth-child(3){
+    position:absolute;
+    left:-30%;  top:28%;
+    width:55%; height:48%;
+    z-index:3;
+  }
+  /* img 4 — bottom-left plate */
+  .platter__quad-img:nth-child(4){
+    position:absolute;
+    left:0;    top:50%;
+    width:52%; height:48%;
+    z-index:2;
+  }
+  /* drink */
+  .platter__drink{
+    position:absolute;
+    left:60%;  top:28%;
+    width:38%; height:65%;
+    object-fit:contain;object-position:center bottom;z-index:4;
   }
   .platter__content{width:100%}
   .platter__name{margin-bottom:12px}
