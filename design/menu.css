@@ -1,3 +1,16 @@
+/* ═══════════════════════════════════════════════════════════════
+   menu.css  (cleaned)
+
+   1. Fonts + tokens + reset
+   2. Components: buttons, navbar, hero, platters, menu section, footer
+   3. Responsive: ≤1280  →  ≥861 (desktop only)  →  ≤860 (mobile, ONE block)  →  ≤600
+   4. Reduced motion (ONE block, must stay last)
+
+   Rule of thumb: base styles live in section 2. Anything that changes
+   per screen size lives in section 3, never next to the base rule.
+═══════════════════════════════════════════════════════════════ */
+
+/* ───────── 1. Fonts, tokens, reset ───────── */
 @font-face{
   font-family:'Luxurious Script';
   src:url('../assets/fonts/LuxuriousScript-Regular.ttf') format('truetype');
@@ -22,23 +35,24 @@
   --ink:#000;
   --paper:#fff;
   --field:#F2ECEC;
-  --green: #99CA97;
+  --green:#99CA97;
   --nav-h:max(64px,7vw);
   --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
   --script:'Luxurious Script','Snell Roundhand','Apple Chancery',cursive;
   --desc:'Huninn',var(--sans);      /* menu + platter descriptions */
-  --peso:'Farsan',var(--sans);      /* ₱ sign from Farsan, digits fall through to the normal font */
+  --peso:'Farsan',var(--sans);      /* ₱ from Farsan, digits fall through to the normal font */
   color-scheme:light;
 }
 
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}   /* nav links glide to their section, same as the home page */
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--paper)}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;height:auto}
 
-/* ───────── Buttons ───────── */
+/* ───────── 2. Components ───────── */
+
+/* Buttons */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;
   background:var(--coral);color:#fff;border-radius:999px;
@@ -48,7 +62,7 @@ img{max-width:100%;height:auto}
 .btn:hover{background:#e84548}
 .btn:active{transform:translateY(1px)}
 
-/* ───────── Sticky navbar (same as home page) ───────── */
+/* ── Navbar ── */
 .nav{
   position:sticky;top:0;z-index:100;
   height:var(--nav-h);
@@ -72,12 +86,6 @@ img{max-width:100%;height:auto}
   border-radius:999px;white-space:nowrap;color:#000;
   transition:background-color .2s,color .2s;
 }
-@media (min-width:861px){
-  /* Home + Contact: same width, and same 2px inset from the pill's left / right edge */
-  .nav__pill a[href$="#home"],.nav__pill a[href$="#menu"]{width:17.5%;transform:none}
-  .nav__pill a[href$="#home"]{left:2px}
-  .nav__pill a[href$="#menu"]{left:auto;right:2px}
-}
 .nav__pill a:hover{color:var(--coral)}
 .nav__pill a.is-active{background:var(--coral);color:#fff}
 .nav__pill .only-mobile{display:none}
@@ -85,7 +93,7 @@ img{max-width:100%;height:auto}
 .nav__cta:active{transform:translateY(calc(-50% + 1px))}
 .nav__toggle{display:none}
 
-/* ───────── Hero ───────── */
+/* ── Hero ── */
 .menu-hero{
   position:relative;overflow:hidden;background:var(--paper);
   container-type:inline-size;
@@ -94,7 +102,7 @@ img{max-width:100%;height:auto}
   display:grid;grid-template-columns:1fr 1fr;align-items:center;
 }
 
-/* Decorative pink shapes (positions follow the Figma frame) */
+/* decorative pink shapes (desktop) */
 .deco{position:absolute;border-radius:50%;background:var(--pink);z-index:0;pointer-events:none}
 .deco--c1{left:2.4cqw;top:13.8cqw;width:10cqw;aspect-ratio:1}
 .deco--c2{left:-2.4cqw;top:42.5cqw;width:15cqw;aspect-ratio:1}
@@ -105,9 +113,10 @@ img{max-width:100%;height:auto}
   left:62.5cqw;top:-19.7cqw;width:60.3cqw;aspect-ratio:1;background:none;
   border:6.5cqw solid var(--pink);
 }
+.mm-circles{display:none}            /* mobile circles, shown in the ≤860 block */
 
-/* Left column: title, blurb, search */
-.menu-hero__copy{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+/* left column: title, blurb, search */
+.menu-hero__copy{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center}
 .menu-title{margin:0;line-height:1;position:relative;text-align:center}
 .menu-title__our{
   display:block;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;
@@ -124,7 +133,10 @@ img{max-width:100%;height:auto}
   text-align:center;font-weight:500;line-height:1.35;
   font-size:clamp(14px,1.3cqw,40px);
 }
+
+/* hero search */
 .menu-search{
+  position:relative;
   width:100%;max-width:38cqw;margin:2.2cqw 0 0;
   height:clamp(42px,3.3cqw,90px);padding:0 1.8cqw;
   display:flex;align-items:center;gap:.9cqw;
@@ -137,13 +149,12 @@ img{max-width:100%;height:auto}
   font:inherit;font-size:clamp(13px,1.1cqw,28px);color:var(--ink);outline:none;
 }
 .menu-search input::placeholder{color:#6b6262}
-/* hide the browser's built-in blue "x" clear button */
+/* hide the browser's built-in "x" clear button */
 .menu-search input::-webkit-search-cancel-button,
 .menu-search input::-webkit-search-decoration{-webkit-appearance:none;appearance:none;display:none}
 .menu-search input::-ms-clear{display:none}
 
-/* "Search" pill on the right: appears when the bar is clicked/focused (or has text) */
-.menu-search{position:relative}
+/* "Search" pill: appears when the bar is focused or has text */
 .menu-search__go{
   flex:none;display:none;align-items:center;gap:.5em;cursor:pointer;
   height:74%;margin-right:-1.1cqw;padding:0 1.3cqw;
@@ -161,99 +172,54 @@ img{max-width:100%;height:auto}
 .menu-search:focus-within .menu-search__go,
 .menu-search.is-active .menu-search__go{display:inline-flex;animation:goIn .2s ease-out both}
 @keyframes goIn{from{opacity:0;transform:translateX(8px) scale(.9)}to{opacity:1;transform:none}}
-.menu-hero__copy{z-index:3}
 
-/* search suggestions dropdown */
+/* red outline while a search has no matches (hero + menu search) */
+.menu-find:has(input.has-no-results),
+.menu-search:has(input.has-no-results){outline:2px solid var(--coral);outline-offset:2px}
+
+/* search suggestions dropdown (Huninn, like the menu descriptions) */
 .menu-suggest{
-  position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:20;
-  margin:0;padding:6px;list-style:none;
-  background:#fff;border-radius:22px;
+  position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:50;
+  margin:0;padding:4px;list-style:none;
+  background:#fff;border-radius:18px;
   box-shadow:0 14px 34px -10px rgba(0,0,0,.28),0 0 0 1px rgba(0,0,0,.05);
-  max-height:min(60vh,340px);overflow-y:auto;
+  max-height:min(46vh,300px);overflow-y:auto;
   animation:sugIn .16s ease-out both;
 }
 .menu-suggest[hidden]{display:none}
 @keyframes sugIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 .menu-suggest__item{
-  display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:16px;
-  cursor:pointer;font-size:clamp(13px,1.05cqw,22px);
+  display:flex;align-items:center;gap:10px;padding:7px 12px;border-radius:14px;
+  cursor:pointer;font-family:var(--desc);font-size:max(15px,1.1cqw);
 }
 .menu-suggest__item:hover,.menu-suggest__item.is-active{background:var(--field)}
-.menu-suggest__img{flex:none;width:44px;height:44px;border-radius:50%;background:var(--field);object-fit:contain}
-.menu-suggest__name{flex:1;min-width:0;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.menu-suggest__name mark{background:none;color:var(--coral);font-weight:800}
-.menu-suggest__meta{flex:none;display:flex;flex-direction:column;align-items:flex-end;line-height:1.2}
-.menu-suggest__price{font-family:var(--peso);font-weight:700}
-.menu-suggest__cat{font-size:.78em;color:#7a7070;text-transform:capitalize}
-.menu-suggest__empty{padding:14px 16px;color:#6b6262;cursor:default}
-@media (max-width:860px){
-  .menu-search__go{padding:0 16px;margin-right:-10px;font-size:13px}
-  .menu-suggest__item{font-size:14px}
+.menu-suggest__img{flex:none;width:36px;height:36px;border-radius:50%;background:var(--field);object-fit:contain}
+.menu-suggest__name{
+  flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  font-family:var(--desc);font-weight:400;font-synthesis-weight:none;
 }
-/* leave room below the fixed nav when jumping to the menu panel */
+.menu-suggest__name mark{background:none;color:var(--coral)}
+.menu-suggest__meta{flex:none;display:flex;flex-direction:column;align-items:flex-end;line-height:1.2}
+.menu-suggest__price{font-family:var(--peso);font-weight:700;font-size:1em}   /* Farsan keeps the ₱ matching the cards */
+.menu-suggest__cat{
+  font-family:var(--desc);font-weight:400;font-synthesis-weight:none;
+  font-size:.8em;color:#7a7070;text-transform:capitalize;
+}
+.menu-suggest__empty{padding:12px 14px;font-family:var(--desc);font-size:max(15px,1.1cqw);color:#6b6262;cursor:default}
+
+/* leave room below the navbar when jumping to the menu panel */
 #menu{scroll-margin-top:calc(var(--nav-h) + 12px)}
 
-/* Right column: food image */
+/* right column: food image */
 .menu-hero__media{
-  position:relative;z-index:1;left:auto;top:auto;
+  position:relative;z-index:1;
   width:80%;max-width:46.4cqw;aspect-ratio:1;border-radius:50%;
   justify-self:center;
 }
 .menu-hero__media img{width:100%;height:100%;object-fit:contain;display:block}
 
-
-/* ───────── Mobile ───────── */
-@media (max-width:860px){
-  :root{--nav-h:68px}
-  .nav.is-solid,.nav.is-open{background:transparent;box-shadow:none}
-  .nav{transition:none}
-  .nav.is-open{background:#fff}
-  .nav__in{container-type:normal}
-  .nav__logo{left:20px;width:104px}
-  .nav__cta{display:none}
-  .nav__toggle{
-    display:grid;place-items:center;position:absolute;right:14px;top:50%;transform:translateY(-50%);
-    width:58px;height:42px;border:0;border-radius:999px;background:var(--coral);cursor:pointer;
-  }
-  .nav__toggle span,.nav__toggle span::before,.nav__toggle span::after{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:transform .25s,background-color .25s}
-  .nav__toggle span{position:relative}
-  .nav__toggle span::before,.nav__toggle span::after{content:"";position:absolute;left:0}
-  .nav__toggle span::before{top:-6px}
-  .nav__toggle span::after{top:6px}
-  .nav.is-open .nav__toggle span{background:transparent}
-  .nav.is-open .nav__toggle span::before{transform:translateY(6px) rotate(45deg)}
-  .nav.is-open .nav__toggle span::after{transform:translateY(-6px) rotate(-45deg)}
-  .nav__pill{
-    position:absolute;left:0;right:0;top:100%;width:auto;height:auto;transform:none;
-    border-radius:0 0 24px 24px;background:#fff;padding:6px 16px 20px;
-    display:none;flex-direction:column;gap:6px;font-size:17px;
-    box-shadow:0 18px 30px -18px rgba(0,0,0,.35);
-  }
-  .nav.is-open .nav__pill{display:flex;animation:navDrop .28s ease-out both}
-  .nav__pill a{position:static;transform:none;min-width:0;height:48px;padding:0 20px;justify-content:flex-start;color:#000}
-  .nav__pill a.is-active{color:#fff}
-  .nav__pill .only-mobile{display:flex;margin-top:8px;background:var(--coral);color:#fff;justify-content:center}
-  .nav__pill a.is-active:hover{color:#fff}
-  .nav__pill .only-mobile:hover,.nav__pill .only-mobile:focus{background:var(--coral);color:#fff}
-
-  .menu-hero{gap:32px;padding:calc(var(--nav-h) + 24px) 5.3% 48px;grid-template-columns:1fr}
-  .menu-title{margin-left:0}
-  .menu-title__menu{margin-left:.3em}
-  .menu-hero__sub,.menu-search{width:100%;margin-left:0}
-  .menu-hero__sub{margin-top:20px;padding:0}
-  .menu-search{margin-top:20px}
-  .menu-hero__media{width:100%;max-width:360px;justify-self:center}
-}
-
-@keyframes navDrop{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 -48px 0)}}
-@media (prefers-reduced-motion:reduce){.nav.is-open .nav__pill{animation:none}}
-
-/* ═══════════════════════════════════════════
-   FAMILY PLATTER SECTION
-   Laid out from the Figma "family platter" frame.
-   cqw = 1% of the page width, so it all scales together.
-═══════════════════════════════════════════ */
-
+/* ── Family platters ──
+   cqw = 1% of the section width, so it all scales together. */
 .platter{
   position:relative;overflow:hidden;
   container-type:inline-size;
@@ -263,8 +229,7 @@ img{max-width:100%;height:auto}
   gap:3vw 4%;
   justify-items:center;
 }
-
-/* pink decorative circles from the Figma frame (the big one is cropped by the section) */
+/* pink circles (the big one is cropped by the section) */
 .platter::before,.platter::after{
   content:"";position:absolute;border-radius:50%;background:var(--pink);
   z-index:0;pointer-events:none;
@@ -272,7 +237,6 @@ img{max-width:100%;height:auto}
 .platter::before{left:45.4%;top:2.7vw;width:4.9vw;aspect-ratio:1}
 .platter::after{left:77.5%;top:27.7vw;width:44.7vw;aspect-ratio:1}
 
-/* ── Card ── */
 .platter__card{
   position:relative;z-index:1;
   display:flex;align-items:flex-start;
@@ -283,8 +247,9 @@ img{max-width:100%;height:auto}
   border-radius:clamp(10px,1cqw,20px);
   transition:transform .25s ease;
 }
+.platter__card:hover{transform:translateY(-.4cqw)}
 
-/* ── Food cluster: bleeds out of the card on the left and top ── */
+/* food cluster: bleeds out of the card on the left and top */
 .platter__imgs{
   position:absolute;z-index:2;pointer-events:none;
   left:-4.5cqw;top:-1.4cqw;
@@ -294,25 +259,20 @@ img{max-width:100%;height:auto}
 .platter__quad-img,.platter__drink{
   position:absolute;object-fit:contain;
   filter:drop-shadow(0 3px 8px rgba(0,0,0,.25));
+  transition:transform .3s ease;
 }
+.platter__card:hover .platter__quad-img,
+.platter__card:hover .platter__drink{transform:scale(1.05)}
 /* slot 1 big plate top-left, 2 bowl top-right (behind), 3 plate front-centre, 4 plate bottom-left */
 .platter__quad-img:nth-child(1){left:0;top:0;width:53%;height:50.7%;z-index:1}
 .platter__quad-img:nth-child(2){left:55.3%;top:11%;width:45.2%;height:47.4%;z-index:1}
 .platter__quad-img:nth-child(3){left:26.5%;top:22%;width:40.6%;height:42.6%;z-index:3}
 .platter__quad-img:nth-child(4){left:10%;top:48.3%;width:48.4%;height:46.4%;z-index:2}
-/* drink stands where the bottles are in Figma */
-.platter__drink{
-  left:60%;top:30%;width:45%;height:70%;
-  object-position:center bottom;z-index:4;
-}
+.platter__drink{left:60%;top:30%;width:45%;height:70%;object-position:center bottom;z-index:4}
 
-/* ── Text ── */
+/* text */
 .platter__content{flex:none;width:22.2cqw;max-width:100%}
-
-.platter__name{
-  margin:0 0 1.3cqw;line-height:1;
-  display:flex;flex-direction:column;width:max-content;
-}
+.platter__name{margin:0 0 1.3cqw;line-height:1;display:flex;flex-direction:column;width:max-content}
 .platter__name-script{
   display:block;white-space:nowrap;
   font-family:var(--script);font-weight:400;line-height:1;color:#fff;
@@ -333,7 +293,7 @@ img{max-width:100%;height:auto}
   font-size:clamp(11.5px,.88cqw,21px);line-height:1.4;
 }
 
-/* ── Price badge (bottom-right of the card) ── */
+/* price badge (bottom-right of the card) */
 .platter__price-wrap{
   position:absolute;z-index:3;right:1.5cqw;bottom:1.8cqw;
   width:clamp(62px,7cqw,150px);aspect-ratio:139 / 142;
@@ -351,117 +311,53 @@ img{max-width:100%;height:auto}
   font-size:clamp(13px,1.4cqw,30px);font-weight:700;line-height:1;white-space:nowrap;
 }
 
-/* ── Hover: same lift + photo zoom as the menu cards ── */
-.platter__card:hover{transform:translateY(-.4cqw)}
-.platter__quad-img,.platter__drink{transition:transform .3s ease}
-.platter__card:hover .platter__quad-img,
-.platter__card:hover .platter__drink{transform:scale(1.05)}
-@media (prefers-reduced-motion:reduce){
-  .platter__card,.platter__quad-img,.platter__drink{transition:none}
-}
-
-/* ── Mobile: one card per row, cluster sits on top of the card ── */
-@media (max-width:860px){
-  .platter{grid-template-columns:1fr;padding:16vw 5vw 8vw;row-gap:16vw}
-  .platter::before,.platter::after{display:none}
-  .platter__card{
-    display:block;width:auto;margin:0;min-height:0;
-    padding:calc(min(70vw,420px) * .95 - 7vw) 20px 24px;
-  }
-  .platter__imgs{
-    left:50%;top:-10vw;transform:translateX(-50%);
-    width:min(70vw,420px);height:auto;aspect-ratio:21.9 / 20.9;
-  }
-  .platter__content{width:100%}
-  .platter__name{margin-bottom:12px}
-  .platter__name-script{font-size:44px}
-  .platter__name-bold{font-size:18px}
-  .platter__desc{font-size:17px;margin-bottom:14px}
-  .platter__list{font-size:16px;max-width:none}
-  .platter__price-wrap{
-    position:relative;right:auto;bottom:auto;
-    width:92px;margin:16px 0 0 auto;
-  }
-  .platter__price-label{font-size:10px}
-  .platter__price{font-size:18px}
-}
-
-
-/* ═══════════════════════════════════════════
-   MENU SECTION
-   Laid out from the Figma "menu" frame (1920 × 1080).
-   cqw = 1% of the section width, so the whole composition scales with the page.
-   Card internals use --u (1cqw on desktop) so they can be scaled up when
-   the grid drops to 2 / 1 columns.
-═══════════════════════════════════════════ */
-
+/* ── Menu section (Figma 1920×1080 frame; cqw = 1% of the section width) ──
+   Card internals use --u (1cqw on desktop) so the responsive blocks can scale them up. */
 .menu-body{
   position:relative;
   container-type:inline-size;
   background:var(--paper);
-  overflow-x:clip;                 /* crops the big circle on the left without breaking anything */
-  --leaf:#4f7c3a;                  /* price green from the Figma */
+  overflow-x:clip;
+  --leaf:#4f7c3a;                  /* price green */
 }
-
-/* the frame starts with the navbar zone, so the nav sits over white space when you jump to #menu */
 .menu-container{
   display:grid;
   grid-template-columns:38.44cqw minmax(0,1fr);   /* 738px of 1920 */
   align-items:start;
-  padding-right:3.07cqw;                          /* cards end 59px from the right edge */
+  padding-right:3.07cqw;
 }
 
-/* ══════════════════════════════════════════
-   SULIT DEALS (left)
-   Everything is positioned against the aside, in frame coordinates.
-══════════════════════════════════════════ */
-.sulit-deals{
-  position:relative;
-  height:56.25cqw;                 /* 1080px frame */
-  overflow:hidden;
-}
-
-/* small pink dot next to the big circle */
-.sulit-deals::before{
+/* Sulit Deals (left). Everything is positioned against the aside, in frame coordinates. */
+.sulit-deals{position:relative;height:56.25cqw;overflow:hidden}
+.sulit-deals::before{       /* small pink dot */
   content:"";position:absolute;z-index:0;
   left:32.19cqw;top:17.92cqw;width:3.75cqw;aspect-ratio:1;
   border-radius:50%;background:var(--pink);
 }
-/* pink circle cropped by the bottom of the frame */
-.sulit-deals::after{
+.sulit-deals::after{        /* pink circle cropped by the bottom of the frame */
   content:"";position:absolute;z-index:0;
   left:31.25cqw;top:50.83cqw;width:7.81cqw;aspect-ratio:1;
   border-radius:50%;background:var(--pink);
 }
-
-/* the wrapper stays static so its children position against the aside;
-   the big circle is drawn by the pseudo-element */
+/* wrapper stays static so children position against the aside; the big circle is its ::before */
 .sulit-deals__circle{position:static}
 .sulit-deals__circle::before{
   content:"";position:absolute;z-index:0;
   left:-14.7cqw;top:8.12cqw;width:46.9cqw;aspect-ratio:1;
   border-radius:50%;background:var(--pink);
 }
-
-.sulit-deals__header{
-  position:absolute;z-index:2;
-  left:2.24cqw;top:10.9cqw;
-}
+.sulit-deals__header{position:absolute;z-index:2;left:2.24cqw;top:10.9cqw}
 .sulit-deals__title{
-  margin:0;
-  font-family:var(--sans);font-weight:800;
-  font-size:5.6cqw;line-height:1;letter-spacing:-.01em;
-  color:#000;
+  margin:0;font-family:var(--sans);font-weight:800;
+  font-size:5.6cqw;line-height:1;letter-spacing:-.01em;color:#000;
 }
 .sulit-deals__subtitle{
-  position:relative;z-index:1;
-  margin:-.3em 0 0 .38em;
+  position:relative;z-index:1;margin:-.3em 0 0 .38em;
   font-family:var(--script);font-weight:400;
-  font-size:12cqw;line-height:.9;
-  color:var(--coral);
+  font-size:12cqw;line-height:.9;color:var(--coral);
 }
 
-/* "ONLY ₱340 / ₱440" badge */
+/* "ONLY ₱339 / ₱388" badge */
 .sulit-deals__badge{
   --b:1cqw;
   position:absolute;z-index:3;
@@ -480,13 +376,13 @@ img{max-width:100%;height:auto}
   font-size:calc(var(--b) * 2.4);font-weight:700;line-height:1;
 }
 .sulit-deals__badge-old{
+  position:relative;
   font-family:var(--peso);font-synthesis-weight:none;
   font-size:calc(var(--b) * 1.7);font-weight:600;line-height:1;
-  position:relative;
   color:var(--green);
   --x:max(.9px,.035em);              /* half the thickness of the cross-out lines */
 }
-/* cross-out: two thin dark-green diagonals forming an X that runs a little past the number */
+/* cross-out: two thin diagonals forming an X */
 .sulit-deals__badge-old::after{
   content:"";position:absolute;pointer-events:none;
   left:-12%;right:-12%;top:.2em;height:.45em;
@@ -495,8 +391,7 @@ img{max-width:100%;height:auto}
     linear-gradient(to bottom right, transparent calc(50% - var(--x)), var(--leaf) calc(50% - var(--x)), var(--leaf) calc(50% + var(--x)), transparent calc(50% + var(--x)));
 }
 
-/* ── Carousel: each slide is the same frame as the aside, so the
-      absolute coordinates below still work. Only the track moves. ── */
+/* carousel: each slide is the same frame as the aside, so the coordinates here still work */
 .sulit-deals__viewport{
   position:absolute;inset:0;z-index:2;
   overflow:hidden;
@@ -509,33 +404,30 @@ img{max-width:100%;height:auto}
 }
 .sulit-deals__slide{position:relative;flex:0 0 100%;height:100%;min-width:0}
 
-/* plates: each deal is one picture you composed (assets/Sulit Deals/). The wrapper dissolves
-   so the image positions against the slide, same coordinate frame as the badge and text. */
+/* deal pictures (assets/Sulit Deals/). The wrapper dissolves so images position against the slide. */
 .sulit-deals__images{display:contents}
 .sulit-deals__img-combo{
   position:absolute;z-index:1;object-fit:contain;
   left:3cqw;top:21.5cqw;width:30cqw;height:22.5cqw;
   filter:drop-shadow(0 .5cqw 1cqw rgba(0,0,0,.18));
 }
-/* per-deal size / position tweaks (the pictures have different amounts of empty space) */
+/* per-deal tweaks (the pictures have different amounts of empty space) */
 .sulit-deals__img-combo[src*="Deal 1"]{left:3.2cqw;top:21.8cqw;width:33cqw;height:24.3cqw}
 .sulit-deals__img-combo[src*="Deal 3"]{left:10.5cqw;top:20cqw;width:25.5cqw;height:25.5cqw}
 
 .sulit-deals__desc{
   position:absolute;z-index:2;
   left:2.08cqw;top:45.6cqw;max-width:21cqw;margin:0;
-  font-family: var(--desc);font-size:1.05cqw;font-weight:500;line-height:1.3;color:#000;
+  font-family:var(--desc);font-size:1.05cqw;font-weight:500;line-height:1.3;color:#000;
 }
 
-
-/* ── Dots ── */
-.sulit-deals__dots{
-  position:absolute;z-index:4;
-  left:1.6cqw;top:52.1cqw;
-  display:flex;align-items:center;gap:.2cqw;
+/* arrows + dots */
+.sulit-deals__nav{
+  position:absolute;z-index:4;left:1.6cqw;top:52.1cqw;
+  display:flex;align-items:center;gap:.5cqw;
 }
-.sulit-deals__dot{
-  /* big invisible hit area, small visible dot */
+.sulit-deals__dots{display:flex;align-items:center;gap:.2cqw}
+.sulit-deals__dot{            /* big invisible hit area, small visible dot */
   position:relative;
   width:max(22px,1.9cqw);height:max(22px,1.9cqw);
   padding:0;border:0;background:transparent;cursor:pointer;
@@ -551,37 +443,47 @@ img{max-width:100%;height:auto}
 .sulit-deals__dot:hover::before{background:var(--blush)}
 .sulit-deals__dot.is-active::before{background:var(--coral)}
 .sulit-deals__dot:focus-visible{outline:2px solid var(--coral);outline-offset:-2px;border-radius:999px}
-
-@media (prefers-reduced-motion:reduce){
-  .sulit-deals__track{transition:none}
-  .sulit-deals__dot::before{transition:none}
+.sulit-deals__arrow{
+  flex:none;display:grid;place-items:center;
+  width:max(28px,2.4cqw);height:max(28px,2.4cqw);padding:0;
+  border:0;border-radius:50%;cursor:pointer;
+  background:var(--coral);color:#fff;
+  box-shadow:0 .2cqw .6cqw rgba(253,89,91,.35);
+  transition:transform .18s ease,filter .18s ease;
 }
+.sulit-deals__arrow svg{width:55%;height:55%}
+.sulit-deals__arrow:hover{filter:brightness(1.07)}
+.sulit-deals__arrow--prev:hover{transform:translateX(-2px)}
+.sulit-deals__arrow--next:hover{transform:translateX(2px)}
+.sulit-deals__arrow:active{transform:scale(.94)}
+.sulit-deals__arrow:focus-visible{outline:2px solid #000;outline-offset:2px}
 
-/* ══════════════════════════════════════════
-   RIGHT SIDE: search, filters, cards
-══════════════════════════════════════════ */
+/* menu-main (right): scroll window with a sticky search + filter bar */
 .menu-main{
   --u:1cqw;
   position:relative;
   display:flex;flex-direction:column;
-  padding-top:6.93cqw;             /* search bar starts 133px into the frame */
-  /* The scroll window is the whole right column, so it starts and ends exactly where the
-     Sulit Deals panel does. Content slides under the navbar on both sides at the same line. */
-  height:56.25cqw;
+  padding-top:0;
+  height:56.25cqw;                 /* same height as Sulit Deals */
   overflow-x:hidden;overflow-y:auto;
   scrollbar-width:thin;scrollbar-color:var(--coral) transparent;
 }
 .menu-main > *{flex:none}          /* stop the flex column from squashing the grid */
 .menu-main::-webkit-scrollbar{width:8px}
 .menu-main::-webkit-scrollbar-thumb{background:var(--coral);border-radius:999px}
-/* small pink dot to the right of the filters */
-.menu-main::before{
+.menu-main::before{                /* small pink dot right of the filters */
   content:"";position:absolute;z-index:0;
   left:54cqw;top:12.03cqw;width:3.75cqw;aspect-ratio:1;
   border-radius:50%;background:var(--pink);
 }
+.menu-sticky{
+  position:sticky;top:0;z-index:30;
+  margin-top:6.93cqw;              /* search bar starts 133px into the frame */
+  padding:.8cqw 0 1cqw;
+  background:var(--paper);
+}
 
-/* ── Search ── */
+/* menu search */
 .menu-find{
   position:relative;z-index:1;
   display:flex;align-items:center;gap:.8cqw;
@@ -596,12 +498,8 @@ img{max-width:100%;height:auto}
 }
 .menu-find input::placeholder{color:#6b6262}
 
-/* ── Filters ── */
-.menu-filters{
-  position:relative;z-index:1;
-  display:flex;flex-wrap:wrap;justify-content:center;
-  gap:.62cqw;margin:0;
-}
+/* filters */
+.menu-filters{position:relative;z-index:1;display:flex;flex-wrap:wrap;justify-content:center;gap:.62cqw;margin:0}
 .filter-btn{
   min-width:6.35cqw;height:max(40px,3.18cqw);padding:0 1.2cqw;
   background:var(--field);color:#000;
@@ -614,18 +512,17 @@ img{max-width:100%;height:auto}
 .filter-btn.is-active{background:var(--coral);color:#fff}
 .filter-btn:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
 
-/* ── Grid ── */
+/* grid */
 .menu-grid{
   position:relative;z-index:1;
   display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
   column-gap:calc(var(--u) * 4.3);
-  row-gap:calc(var(--u) * 7.65);                 /* leaves room for the images that break out of each card */
-  margin-top:1.3cqw;
-  /* The rest of the menu scrolls inside .menu-main (the window above), not in the grid itself. */
-  padding:calc(var(--u) * 5.7) .5cqw calc(var(--u) * 2) 0;   /* top padding = room for the images that pop out of row 1 */
+  row-gap:calc(var(--u) * 7.65);                 /* room for the images that break out of each card */
+  margin-top:0;
+  padding:calc(var(--u) * 5.7) .5cqw calc(var(--u) * 2) 0;   /* top padding = room for row 1 images */
 }
 
-/* ── Card ── */
+/* card */
 .menu-card{
   position:relative;
   display:flex;flex-direction:column;
@@ -654,16 +551,14 @@ img{max-width:100%;height:auto}
   transition:transform .3s ease;
 }
 .menu-card:hover .menu-card__img img{transform:scale(calc(var(--img-scale,1) * 1.05))}
-
-/* Some PNGs have a lot of empty transparent padding, so the dish looks tiny inside the box.
-   --img-scale enlarges those images to match the others. Tweak the numbers to taste;
-   the real fix is cropping the PNGs to the dish. */
+/* PNGs with lots of empty padding look small; --img-scale enlarges them.
+   The real fix is cropping those PNGs to the dish. */
 .menu-card__img img[src*="ube champorado"]{--img-scale:2.2}
 .menu-card__img img[src*="tapsilog"]{--img-scale:1.8}
 .menu-card__img img[src*="tocilog"]{--img-scale:2.2}
 .menu-card__img img[src*="CornedbeefSilog"]{--img-scale:2.2}
 
-/* price badge: white circle, green text */
+/* price badge */
 .menu-card__price{
   position:absolute;z-index:2;
   top:calc(var(--u) * 1.7);right:calc(var(--u) * 1.3);
@@ -691,68 +586,28 @@ img{max-width:100%;height:auto}
 .menu-card__name-bold{
   display:block;margin-top:calc(var(--u) * -.1);
   font-family:var(--sans);font-weight:700;text-transform:uppercase;
-  font-size:max(12px,calc(var(--u) * 1.05));letter-spacing:.02em;line-height:1.1;
+  font-size:max(13px,calc(var(--u) * 1.15));letter-spacing:.02em;line-height:1.1;
   text-align:center;
 }
 .menu-card__desc{
   margin:0;color:#fff;
   font-family:var(--desc);font-weight:400;
-  font-size:max(11.5px,calc(var(--u) * .7));line-height:1.3;
+  font-size:max(13px,calc(var(--u) * .86));line-height:1.35;
 }
 
-/* ══════════ Responsive ══════════ */
-
-/* narrower desktop: 2 columns, card internals scaled up so they stay readable */
-@media (max-width:1280px){
-  .menu-main{--u:1.4cqw}
-  .menu-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+/* "no results" message (shown by menu.js) */
+.menu-empty{
+  grid-column:1 / -1;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:calc(var(--u) * 4) 16px;color:var(--ink);
 }
+.menu-empty[hidden]{display:none}
+.menu-empty svg{width:max(40px,calc(var(--u) * 3.6));height:auto;color:var(--coral);margin-bottom:12px}
+.menu-empty__title{margin:0;font-weight:700;font-size:max(18px,calc(var(--u) * 1.5))}
+.menu-empty__term{color:var(--coral);word-break:break-word}
+.menu-empty__hint{margin:6px 0 16px;color:#6b6262;font-size:max(14px,calc(var(--u) * .9))}
 
-/* tablet / mobile: sidebar becomes a pink panel above the menu */
-@media (max-width:860px){
-  .menu-body{padding-top:var(--nav-h)}
-  .menu-container{display:block;padding:0 5cqw 10cqw}
-  .menu-main{--u:2.4cqw;padding-top:6cqw;height:auto;overflow:visible}
-  .menu-main::before{display:none}
-
-  .sulit-deals{
-    height:auto;padding:28px 20px 32px;
-    background:var(--pink);border-radius:28px;text-align:center;
-  }
-  .sulit-deals::before,.sulit-deals::after,.sulit-deals__circle::before{display:none}
-  .sulit-deals__header,.sulit-deals__badge,.sulit-deals__desc{position:static}
-  .sulit-deals__title{font-size:clamp(44px,9vw,72px)}
-  .sulit-deals__subtitle{margin:-.3em 0 0;font-size:clamp(64px,13vw,104px)}
-
-  /* carousel: viewport and slides flow normally, slides still sit side by side in the track */
-  .sulit-deals__viewport{position:static;inset:auto}
-  .sulit-deals__track{height:auto;align-items:flex-start}
-  .sulit-deals__slide{height:auto}
-
-  .sulit-deals__badge{--b:clamp(12px,2.2vw,16px);margin:20px auto 0}
-  .sulit-deals__images{display:block;position:relative;margin:12px 0 8px}
-  .sulit-deals__img-combo{position:static;display:block;width:100%;height:auto}
-  .sulit-deals__img-combo[src*="Deal 1"]{margin-top:-9%}
-  .sulit-deals__img-combo[src*="Deal 3"]{width:84%;margin-left:auto;margin-right:auto}
-  .sulit-deals__desc{max-width:none;margin:0 auto;font-size:16px}
-
-  .sulit-deals__dots{position:static;justify-content:center;margin-top:14px}
-
-  .menu-grid{height:auto;overflow:visible;padding-right:0}
-  .menu-filters{gap:8px}
-  .filter-btn{min-width:0;padding:0 18px;height:40px;font-size:14px}
-  .menu-find{margin-bottom:12px}
-}
-
-@media (max-width:600px){
-  .menu-main{--u:3.6cqw}
-  .menu-grid{grid-template-columns:1fr}
-}
-
-
-/* ═══════════════════════════════════════════
-   FOOTER (same as the home page)
-═══════════════════════════════════════════ */
+/* ── Footer ── */
 .foot{position:relative;overflow:hidden;container-type:inline-size;aspect-ratio:1440/230;background:var(--coral);color:#fff}
 .foot p{margin:0}
 .foot .p{position:absolute;left:var(--x);top:var(--y);width:var(--w,auto);margin:0}
@@ -766,7 +621,193 @@ img{max-width:100%;height:auto}
 .foot__rule{--x:6.4%;--y:77.7%;--w:86.8%;height:1px;background:rgba(255,255,255,.75)}
 .foot__copy{--x:6.4%;--y:82.2%;font-size:.76cqw;font-weight:300}
 
+
+/* ═══════════════════════════════════════════
+   3. RESPONSIVE
+═══════════════════════════════════════════ */
+
+/* ── ≤1280: 2 columns, card internals scaled up ── */
+@media (max-width:1280px){
+  .menu-main{--u:1.4cqw}
+  .menu-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* ── ≥861: desktop only ── */
+@media (min-width:861px){
+  /* first and last nav links: 2px inset from the pill's ends, wider so text has room */
+  .nav__pill a[href$="#overview"],
+  .nav__pill a[href$="#menu"]{transform:none}
+  .nav__pill a[href$="#overview"]{width:19%;left:2px}
+  .nav__pill a[href$="#menu"]{width:23%;left:auto;right:2px}
+
+  /* white strip so the coral cards don't merge into the coral footer */
+  .menu-body{padding-bottom:max(28px,1.6cqw)}
+}
+
+/* ── ≤860: MOBILE (everything in one block) ── */
 @media (max-width:860px){
+
+  /* navbar */
+  :root{--nav-h:68px}
+  .nav{transition:none}
+  .nav.is-open{background:#fff;box-shadow:none}
+  .nav__in{container-type:normal}
+  .nav__logo{left:20px;width:104px}
+  .nav__cta{display:none}
+  .nav__toggle{
+    display:grid;place-items:center;position:absolute;right:14px;top:50%;transform:translateY(-50%);
+    width:58px;height:42px;border:0;border-radius:999px;background:var(--coral);cursor:pointer;
+  }
+  .nav__toggle span,.nav__toggle span::before,.nav__toggle span::after{
+    display:block;width:22px;height:2px;background:#fff;border-radius:2px;
+    transition:transform .25s,background-color .25s;
+  }
+  .nav__toggle span{position:relative}
+  .nav__toggle span::before,.nav__toggle span::after{content:"";position:absolute;left:0}
+  .nav__toggle span::before{top:-6px}
+  .nav__toggle span::after{top:6px}
+  .nav.is-open .nav__toggle span{background:transparent}
+  .nav.is-open .nav__toggle span::before{transform:translateY(6px) rotate(45deg)}
+  .nav.is-open .nav__toggle span::after{transform:translateY(-6px) rotate(-45deg)}
+  .nav__pill{
+    position:absolute;left:0;right:0;top:100%;width:auto;height:auto;transform:none;
+    border-radius:0 0 24px 24px;background:#fff;padding:6px 16px 20px;
+    display:none;flex-direction:column;gap:6px;font-size:17px;
+    box-shadow:0 18px 30px -18px rgba(0,0,0,.35);
+  }
+  .nav.is-open .nav__pill{display:flex;animation:navDrop .28s ease-out both}
+  .nav__pill a{position:static;transform:none;min-width:0;height:48px;padding:0 20px;justify-content:flex-start;color:#000}
+  .nav__pill a.is-active,
+  .nav__pill a.is-active:hover{color:#fff}
+  .nav__pill .only-mobile{display:flex;margin-top:8px;background:var(--coral);color:#fff;justify-content:center}
+  .nav__pill .only-mobile:hover,
+  .nav__pill .only-mobile:focus{background:var(--coral);color:#fff}
+
+  /* hero */
+  .menu-hero{
+    gap:32px;padding:calc(var(--nav-h) + 24px) 5.3% 48px;grid-template-columns:1fr;
+    overflow-x:clip;overflow-y:visible;   /* clip sideways only; circles may extend below */
+    z-index:5;                            /* keeps the suggestions dropdown above the sections below */
+  }
+  .deco{display:none}
+  .menu-title__menu{margin-left:.3em}
+  .menu-hero__sub,
+  .menu-search{width:100%;max-width:none;margin-top:20px}
+  .menu-hero__sub{padding:0}
+  .menu-search__go{padding:0 16px;margin-right:-10px;font-size:13px}
+  .menu-hero__media{width:100%;max-width:360px;justify-self:center}
+
+  /* mobile circles (Figma "elipses"): absolute px coords */
+  .mm-circles{
+    display:block;position:absolute;left:0;top:0;width:100%;height:700px;
+    pointer-events:none;z-index:0;overflow:visible;
+  }
+  .mc{position:absolute;border-radius:50%;background:rgba(253,89,91,.38)}
+  .mc--big {width:322px;height:322px;left:114px;top:365px}
+  .mc--hole{width:200px;height:200px;left:175px;top:426px;background:#fff}
+  .mc--tr  {width:126px;height:126px;left:252px;top:108px}
+  .mc--tl  {width:126px;height:126px;left:-174px;top:227px}
+  .mc--sm  {width:28px; height:28px; left:275px; top:248px}
+
+  /* suggestions */
+  .menu-suggest{max-height:min(40vh,260px)}
+  .menu-suggest__item{font-size:15px;padding:6px 10px}
+  .menu-suggest__img{width:34px;height:34px}
+  .menu-suggest__cat{font-size:12px}
+
+  /* platters: one card per row, food cluster on top of the card */
+  .platter{grid-template-columns:1fr;padding:16vw 5vw 8vw;row-gap:16vw}
+  .platter::before,.platter::after{display:none}
+  .platter__card{
+    display:block;width:auto;max-width:none;margin:0;min-height:0;
+    padding:calc(min(70vw,420px) * .95 - 7vw) 20px 24px;
+  }
+  .platter__imgs{
+    left:50%;top:-10vw;transform:translateX(-50%);
+    width:min(70vw,420px);height:auto;aspect-ratio:21.9 / 20.9;
+  }
+  .platter__content{width:100%}
+  .platter__name{margin-bottom:12px}
+  .platter__name-script{font-size:44px}
+  .platter__name-bold{font-size:18px}
+  .platter__desc{font-size:17px;margin-bottom:14px}
+  .platter__list{font-size:16px;max-width:none}
+  .platter__price-wrap{position:relative;right:auto;bottom:auto;width:92px;margin:16px 0 0 auto}
+  .platter__price-label{font-size:10px}
+  .platter__price{font-size:18px}
+
+  /* menu section: Sulit Deals becomes a pink panel above the menu */
+  .menu-body{padding-top:var(--nav-h)}
+  .menu-container{display:block;padding:0 5cqw 10cqw}
+  .menu-main{--u:2.4cqw;padding-top:6cqw;height:auto;overflow:visible}
+  .menu-main::before{display:none}
+
+  .sulit-deals{
+    height:auto;padding:28px 20px 32px;
+    background:var(--pink);border-radius:28px;text-align:center;
+  }
+  .sulit-deals::before,.sulit-deals::after,.sulit-deals__circle::before{display:none}
+  .sulit-deals__header,.sulit-deals__badge,.sulit-deals__desc{position:static}
+  .sulit-deals__title{font-size:clamp(44px,9vw,72px)}
+  .sulit-deals__subtitle{margin:-.3em 0 0;font-size:clamp(64px,13vw,104px)}
+  /* carousel: viewport and slides flow normally, slides still sit side by side in the track */
+  .sulit-deals__viewport{position:static;inset:auto}
+  .sulit-deals__track{height:auto;align-items:flex-start}
+  .sulit-deals__slide{height:auto}
+  .sulit-deals__badge{--b:clamp(12px,2.2vw,16px);margin:20px auto 0}
+  /* __images is a fixed-height box; the image fills it via object-fit */
+  .sulit-deals__images{display:block;position:relative;margin:16px 0 20px;height:55vw}
+  .sulit-deals__img-combo{
+    position:static;display:block;
+    width:100%;height:100%;
+    object-fit:contain;object-position:center center;
+    margin:0 auto;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     MOBILE  –  Sulit Deal 1 image
+     scale  → how much bigger (1.5 = 50% bigger, 2 = double)
+     The box height above keeps the text from overlapping.
+  ═══════════════════════════════════════════════════════════════ */
+  .sulit-deals__img-combo[src*="Deal 1"]{
+    margin-left: 31.1vw;
+    transform: scale(2.9);
+    transform-origin: center center;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     MOBILE  –  Sulit Deal 3 image
+     scale  → how much bigger (1.5 = 50% bigger, 2 = double)
+     The box height above keeps the text from overlapping.
+  ═══════════════════════════════════════════════════════════════ */
+  .sulit-deals__img-combo[src*="Deal 3"]{
+    margin-top: 14.9vw;
+    transform: scale(2.6);
+    transform-origin: center center;
+  }
+  .sulit-deals__desc{max-width:none;margin:0 auto;font-size:16px}
+  /* Pull desc closer to the scaled-up images on slides 1 and 3 */
+  .sulit-deals__slide:nth-child(1) .sulit-deals__desc{margin-top: 5vw}
+  .sulit-deals__slide:nth-child(3) .sulit-deals__desc{margin-top: -11.2vw}
+  .sulit-deals__nav{position:static;justify-content:center;gap:10px;margin-top:14px}
+  .sulit-deals__arrow{width:36px;height:36px}
+
+  /* sticky search + filters: one scrolling row keeps the bar short */
+  .menu-sticky{
+    top:var(--nav-h);margin-top:0;padding:10px 0 12px;
+    box-shadow:0 8px 12px -10px rgba(0,0,0,.18);
+  }
+  .menu-filters{
+    flex-wrap:nowrap;justify-content:flex-start;gap:8px;
+    overflow-x:auto;scrollbar-width:none;padding-bottom:2px;
+  }
+  .menu-filters::-webkit-scrollbar{display:none}
+  .filter-btn{flex:none;min-width:0;padding:0 18px;height:40px;font-size:14px}
+
+  .menu-grid{padding-right:0}
+  .menu-card__desc{font-size:max(14px,calc(var(--u) * .95))}
+
+  /* footer */
   .foot{aspect-ratio:auto;display:flex;flex-direction:column;align-items:flex-start;gap:22px;padding:34px 22px 22px}
   .foot .p{position:relative;left:auto;top:auto;width:auto}
   .foot .foot__logo{width:170px;order:1}
@@ -777,347 +818,21 @@ img{max-width:100%;height:auto}
   .foot .foot__rule{width:100%;order:5}
   .foot .foot__copy{font-size:12px;order:6}
 }
+@keyframes navDrop{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 -48px 0)}}
 
-/* ═══════════════════════════════════════════════════════════════════
-   SCREEN A — Mobile Featured Dishes  (Figma node 41:1051, 402×1264px)
-   Hidden on desktop; shown only on mobile (≤860px).
-═══════════════════════════════════════════════════════════════════ */
-
-/* ── hide on desktop, show on mobile ── */
-.mobile-feat{display:none}
-
-@media(max-width:860px){
-
-/* ── section wrapper ── */
-.mobile-feat{
-  display:flex;flex-direction:column;align-items:center;
-  position:relative;overflow-x:hidden;
-  max-width:430px;margin-inline:auto;
-  padding-bottom:48px;background:#fff;
-}
-/* pill and hero-zone align left inside the flex column */
-.mf-pill,.mf-hero-zone{align-self:flex-start;width:100%}
-
-/* ── decorative circles (aria-hidden, pointer-events-none) ── */
-.mf-circles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
-.mfc{position:absolute;border-radius:50%;background:rgba(253,89,91,0.38)}
-/* Figma (x,y,size): A(226,1124,295) B(-32,471,161) C(263,96,89) D(267,65,31) E(340,492,15) F(58,895,105) */
-.mfc--a{width:295px;height:295px;left:226px;top:1124px}
-.mfc--b{width:161px;height:161px;left:-32px;top:471px}
-.mfc--c{width:89px;height:89px;left:263px;top:96px}
-.mfc--d{width:31px;height:31px;left:267px;top:65px}
-.mfc--e{width:15px;height:15px;left:340px;top:492px}
-.mfc--f{width:105px;height:105px;left:58px;top:895px}
-
-/* ── "SEE DEALS HERE" pill: bleeds off the left at -28px ── */
-.mf-pill{
-  display:flex;align-items:center;
-  position:relative;left:-28px;
-  margin-top:96px;width:164px;min-height:44px;height:39px;
-  background:#FEC0C1;border-radius:100px;text-decoration:none;
-}
-.mf-pill__text{
-  position:absolute;left:36px;top:50%;transform:translateY(-50%);
-  font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:14px;line-height:17px;
-  color:#000;white-space:nowrap;
-}
-.mf-pill:focus-visible{outline:3px solid #111;outline-offset:3px;border-radius:100px}
-
-/* ── reserved hero zone (~290px, per Figma spec y:150–438) ── */
-.mf-hero-zone{height:290px;position:relative;z-index:1}
-
-/* ── individual card: 318×292, primary bg, radius 15 ── */
-.mf-card{
-  position:relative;width:318px;max-width:calc(100vw - 84px);min-width:280px;
-  height:292px;background:#FD595B;border-radius:15px;flex:none;overflow:visible;
-}
-.mf-card+.mf-card{margin-top:124px}
-
-/* ── dish image box ── */
-.mf-card__img-box{position:absolute;pointer-events:none;z-index:2}
-
-/* sisig: box 346×271 at card-relative (-9,-118), img 303×188 rotated -17.55deg */
-.mf-card--sisig .mf-card__img-box{
-  width:346px;height:271px;left:-9px;top:-118px;
-  display:flex;align-items:center;justify-content:center;
-}
-.mf-card--sisig .mf-card__img-box img{
-  width:303px;height:188px;object-fit:contain;
-  transform:rotate(-17.55deg);transform-origin:center;flex:none;
-}
-/* tinola: 231×215 at (50,-91) */
-.mf-card--tinola .mf-card__img-box{width:231px;height:215px;left:50px;top:-91px}
-.mf-card--tinola .mf-card__img-box img{width:100%;height:100%;object-fit:contain}
-
-/* ── script + name lockup: name-wrap at card (12,97), script 65px, name below ── */
-.mf-card__name-wrap{position:absolute;left:12px;top:97px;z-index:3;overflow:visible}
-.mf-card__script{
-  display:block;font-family:'Luxurious Script','Snell Roundhand',cursive;
-  font-weight:400;font-size:65px;line-height:78px;color:#fff;white-space:nowrap;
-}
-.mf-card__name{
-  position:absolute;top:55px;
-  font-family:'Inter',system-ui,sans-serif;font-weight:800;
-  font-size:24px;line-height:29px;color:#fff;white-space:nowrap;margin:0;
-}
-/* sisig name: card (87,152) → wrap-relative left 75 */
-.mf-card--sisig .mf-card__name{left:75px}
-/* tinola name: card (109,152) → wrap-relative left 97 */
-.mf-card--tinola .mf-card__name{left:97px}
-
-/* ── description: card-relative left:21 top:187 width:273 ── */
-.mf-card__desc{
-  position:absolute;left:21px;top:187px;width:273px;
-  font-family:'Huninn',system-ui,sans-serif;font-weight:400;
-  font-size:14px;line-height:16px;color:#fff;z-index:3;margin:0;
+/* ── ≤600: phones, 1 column ── */
+@media (max-width:600px){
+  .menu-main{--u:3.6cqw}
+  .menu-grid{grid-template-columns:1fr}
 }
 
-/* ── price badge: card-relative left:197 top:32, 98×100 ── */
-.mf-card__price{
-  position:absolute;left:197px;top:32px;width:98px;height:100px;
-  background:url('../assets/price bg.png') center/100% 100% no-repeat;
-  z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;
-}
-.mf-card__price-label{
-  font-family:'Huninn',system-ui,sans-serif;font-weight:400;
-  font-size:10px;line-height:11px;text-align:center;
-  color:#4E814B;margin-bottom:4px;letter-spacing:.03em;text-transform:uppercase;
-}
-.mf-card__price-amount{display:flex;align-items:baseline}
-.mf-card__price-peso{font-family:'Farsan',system-ui,sans-serif;font-size:20px;line-height:24px;color:#4E814B;font-weight:400}
-.mf-card__price-num{font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:24px;line-height:29px;color:#4E814B}
 
-} /* end Screen A @media */
-
-/* ═══════════════════════════════════════════════════════════════════
-   SCREEN B — Mobile Full Menu  (Figma node 41:918, 402×1883px)
-   .mm-circles: decorative circles inside .menu-hero (hidden desktop)
-   .mm-platters-mobile: Figma-style platter cards (hidden desktop)
-═══════════════════════════════════════════════════════════════════ */
-
-/* ── circles: hidden on desktop ── */
-.mm-circles{display:none}
-
-/* ── mobile platter section: hidden on desktop ── */
-.mm-platters-mobile{display:none}
-
-@media(max-width:860px){
-
-/* clip sideways only; circles can still extend below the hero */
-.menu-hero{overflow-x:clip;overflow-y:visible}
-
-/* desktop decorations are replaced by .mm-circles on mobile */
-.deco{display:none}
-
-/* ── circles inside .menu-hero ── */
-.mm-circles{
-  display:block;
-  position:absolute;
-  left:0;top:0;width:100%;height:700px;
-  pointer-events:none;z-index:0;overflow:visible;
-}
-.mc{position:absolute;border-radius:50%;background:rgba(253,89,91,0.38)}
-/* Absolute coords:
-   big:  left=114 top=365   hole: left=175 top=426 (white)
-   tr:   left=252 top=108   tl:  left=-174 top=227 (bleeds)  sm: left=275 top=248 */
-.mc--big {width:322px;height:322px;left:114px;top:365px}
-.mc--hole{width:200px;height:200px;left:175px;top:426px;background:#fff}
-.mc--tr  {width:126px;height:126px;left:252px;top:108px}
-.mc--tl  {width:126px;height:126px;left:-174px;top:227px}
-.mc--sm  {width:28px; height:28px; left:275px; top:248px}
-
-/* ── mobile platter section ── */
-.mm-platters-mobile{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  position:relative;
-  overflow-x:hidden;
-  max-width:430px;
-  margin-inline:auto;
-  padding-bottom:40px;
-  background:#fff;
-}
-
-/* ── individual platter card ── */
-.mm-card{
-  position:relative;
-  width:370px;
-  max-width:calc(100vw - 32px);
-  height:271px;
-  background:#FD595B;
-  border-radius:20px;
-  /* 30px gap between cards + 20px for price badge bottom overflow */
-  margin-bottom:50px;
-  flex:none;
-  overflow:visible;
-}
-
-/* ── food collage images ── */
-.mm-card__kk{position:absolute;width:106px;height:107px;left:38px;top:48px;z-index:1;object-fit:contain}
-.mm-card__pb-wrap{position:absolute;width:106px;height:111px;left:-16px;top:98px;z-index:1;overflow:hidden}
-.mm-card__pb-wrap img{display:block;width:100%;height:143.13%;object-fit:cover;position:absolute;top:-43.13%;left:0}
-.mm-card__fr{position:absolute;width:104px;height:100px;left:74px;top:136px;z-index:3;object-fit:contain}
-.mm-card__drinks{position:absolute;width:75px;height:98px;left:148px;top:66px;z-index:4;object-fit:contain}
-
-/* ── script + name lockup ── */
-/* script "Family" at card-relative (144,0); name at (219,55) */
-.mm-card__name-wrap{position:absolute;left:144px;top:0;z-index:3;overflow:visible}
-.mm-card__script{
-  display:block;
-  font-family:'Luxurious Script','Snell Roundhand',cursive;
-  font-weight:400;font-size:65px;line-height:78px;color:#fff;white-space:nowrap;
-}
-/* name: 219-144=75px from wrap left, top 55 */
-.mm-card__name{
-  position:absolute;left:75px;top:55px;
-  font-family:'Inter',system-ui,sans-serif;font-weight:800;
-  font-size:24px;line-height:29px;color:#fff;white-space:nowrap;margin:0;
-}
-/* description: card-relative (219,86), width 145 */
-.mm-card__desc{
-  position:absolute;left:219px;top:86px;width:145px;
-  font-family:'Huninn',system-ui,sans-serif;font-weight:400;
-  font-size:14px;line-height:16px;color:#fff;z-index:3;margin:0;
-}
-
-/* ── price badge: card-relative (279,191), 98×100 ── */
-.mm-card__price{
-  position:absolute;left:279px;top:191px;
-  width:98px;height:100px;
-  background:url('../assets/price bg.png') center/100% 100% no-repeat;
-  z-index:5;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-}
-.mm-card__price-label{
-  font-family:'Huninn',system-ui,sans-serif;font-weight:400;
-  font-size:10px;line-height:11px;text-align:center;
-  color:#4E814B;margin-bottom:4px;letter-spacing:.03em;text-transform:uppercase;
-}
-.mm-card__price-amount{display:flex;align-items:baseline}
-.mm-card__price-peso{
-  font-family:'Farsan',system-ui,sans-serif;font-size:20px;
-  line-height:24px;color:#4E814B;font-weight:400;
-}
-.mm-card__price-num{
-  font-family:'Inter',system-ui,sans-serif;font-weight:700;
-  font-size:24px;line-height:29px;color:#4E814B;
-}
-
-/* hide last card's bottom margin */
-.mm-card:last-child{margin-bottom:0}
-
-} /* end @media(max-width:860px) */
-/* ── Search suggestions: readable size, still short enough not to be cut off ── */
-.menu-suggest{
-  padding:4px;border-radius:18px;
-  max-height:min(46vh,300px);
-  z-index:50;
-}
-.menu-suggest__item{gap:10px;padding:7px 12px;border-radius:14px;font-size:max(15px,1.1cqw)}
-.menu-suggest__img{width:36px;height:36px}
-.menu-suggest__price{font-size:1em}
-.menu-suggest__cat{font-size:.8em}
-.menu-suggest__empty{padding:12px 14px;font-size:max(15px,1.1cqw)}
-@media (max-width:860px){
-  .menu-suggest{max-height:min(40vh,260px)}
-  .menu-suggest__item{font-size:15px;padding:6px 10px}
-  .menu-suggest__img{width:34px;height:34px}
-  .menu-suggest__cat{font-size:12px}
-  /* keep the dropdown above the sections below the hero */
-  .menu-hero{z-index:5}
-}
-
-/* ── Menu cards: bigger text (descriptions are now short) ── */
-.menu-card__desc{font-size:max(13px,calc(var(--u) * .86));line-height:1.35}
-.menu-card__name-bold{font-size:max(13px,calc(var(--u) * 1.15))}
-
-/* ── Sticky search + filters ── */
-.menu-main{padding-top:0}
-.menu-sticky{
-  position:sticky;top:0;z-index:30;
-  margin-top:6.93cqw;                 /* same starting gap as before */
-  padding:.8cqw 0 1cqw;
-  background:var(--paper);
-}
-.menu-sticky .menu-find{margin-bottom:.94cqw}
-.menu-grid{margin-top:0}
-@media (max-width:860px){
-  .menu-main{padding-top:6cqw}
-  .menu-sticky{
-    top:var(--nav-h);margin-top:0;padding:10px 0 12px;
-    box-shadow:0 8px 12px -10px rgba(0,0,0,.18);
-  }
-  /* one scrolling row of filters keeps the sticky bar short */
-  .menu-sticky .menu-filters{
-    flex-wrap:nowrap;justify-content:flex-start;
-    overflow-x:auto;scrollbar-width:none;padding-bottom:2px;
-  }
-  .menu-sticky .menu-filters::-webkit-scrollbar{display:none}
-  .menu-sticky .filter-btn{flex:none}
-  .menu-card__desc{font-size:max(14px,calc(var(--u) * .95))}
-}
-
-/* ── No search results ── */
-.menu-empty{
-  grid-column:1 / -1;
-  display:flex;flex-direction:column;align-items:center;text-align:center;
-  padding:calc(var(--u) * 4) 16px;
-  color:var(--ink);
-}
-.menu-empty[hidden]{display:none}
-.menu-empty svg{width:max(40px,calc(var(--u) * 3.6));height:auto;color:var(--coral);margin-bottom:12px}
-.menu-empty__title{margin:0;font-weight:700;font-size:max(18px,calc(var(--u) * 1.5))}
-.menu-empty__term{color:var(--coral);word-break:break-word}
-.menu-empty__hint{margin:6px 0 16px;color:#6b6262;font-size:max(14px,calc(var(--u) * .9))}
-/* red outline on the search bars while there are no matches */
-.menu-find:has(input.has-no-results),
-.menu-search:has(input.has-no-results){outline:2px solid var(--coral);outline-offset:2px}
-
-/* ── Search suggestions use Huninn (the menu description font) ── */
-.menu-suggest__item,
-.menu-suggest__empty{font-family:var(--desc)}
-.menu-suggest__name,
-.menu-suggest__name mark,
-.menu-suggest__cat{font-family:var(--desc);font-weight:400;font-synthesis-weight:none}
-.menu-suggest__name mark{color:var(--coral)}
-/* price keeps Farsan so the ₱ sign still matches the cards */
-.menu-suggest__price{font-family:var(--peso);font-weight:700}
-
-/* ── White strip under the menu so the coral cards don't merge into the coral footer ── */
-@media (min-width:861px){
-  .menu-body{padding-bottom:max(28px,1.6cqw);background:var(--paper)}
-}
-
-/* ── Nav pill: give "Deals & Menu" (and Overview) room so the text isn't hugging the pill's end ── */
-@media (min-width:861px){
-  .nav__pill a[href$="#overview"]{width:19%;transform:none;left:2px}
-  .nav__pill a[href$="#menu"]{width:23%;transform:none;left:auto;right:2px}
-}
-
-/* ── Sulit Deals: previous / next arrows next to the dots ── */
-.sulit-deals__nav{
-  position:absolute;z-index:4;left:1.6cqw;top:52.1cqw;
-  display:flex;align-items:center;gap:.5cqw;
-}
-.sulit-deals__nav .sulit-deals__dots{position:static}
-.sulit-deals__arrow{
-  flex:none;display:grid;place-items:center;
-  width:max(28px,2.4cqw);height:max(28px,2.4cqw);padding:0;
-  border:0;border-radius:50%;cursor:pointer;
-  background:var(--coral);color:#fff;
-  box-shadow:0 .2cqw .6cqw rgba(253,89,91,.35);
-  transition:transform .18s ease,filter .18s ease;
-}
-.sulit-deals__arrow svg{width:55%;height:55%}
-.sulit-deals__arrow:hover{filter:brightness(1.07)}
-.sulit-deals__arrow--prev:hover{transform:translateX(-2px)}
-.sulit-deals__arrow--next:hover{transform:translateX(2px)}
-.sulit-deals__arrow:active{transform:scale(.94)}
-.sulit-deals__arrow:focus-visible{outline:2px solid #000;outline-offset:2px}
-@media (prefers-reduced-motion:reduce){.sulit-deals__arrow{transition:none}}
-@media (max-width:860px){
-  .sulit-deals__nav{position:static;justify-content:center;gap:10px;margin-top:14px}
-  .sulit-deals__nav .sulit-deals__dots{margin-top:0}
-  .sulit-deals__arrow{width:36px;height:36px}
+/* ═══════════════════════════════════════════
+   4. REDUCED MOTION  (keep last so it wins)
+═══════════════════════════════════════════ */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .nav.is-open .nav__pill{animation:none}
+  .platter__card,.platter__quad-img,.platter__drink{transition:none}
+  .sulit-deals__track,.sulit-deals__dot::before,.sulit-deals__arrow{transition:none}
 }
