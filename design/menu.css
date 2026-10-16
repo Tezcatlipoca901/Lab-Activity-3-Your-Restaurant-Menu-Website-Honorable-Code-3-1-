@@ -272,11 +272,14 @@ img{max-width:100%;height:auto}
 .platter__card:hover .platter__quad-img,
 .platter__card:hover .platter__drink{transform:scale(1.05)}
 /* slot 1 big plate top-left, 2 bowl top-right (behind), 3 plate front-centre, 4 plate bottom-left */
-.platter__quad-img:nth-child(1){left:0;top:0;width:53%;height:50.7%;z-index:1}
-.platter__quad-img:nth-child(2){left:55.3%;top:11%;width:45.2%;height:47.4%;z-index:1}
-.platter__quad-img:nth-child(3){left:26.5%;top:22%;width:40.6%;height:42.6%;z-index:3}
-.platter__quad-img:nth-child(4){left:10%;top:48.3%;width:48.4%;height:46.4%;z-index:2}
-.platter__drink{left:60%;top:30%;width:45%;height:70%;object-position:center bottom;z-index:4}
+/* desktop only — mobile uses inline --l/--t/--w/--h variables instead */
+@media (min-width:861px){
+  .platter__quad-img:nth-child(1){left:0;top:0;width:53%;height:50.7%;z-index:1}
+  .platter__quad-img:nth-child(2){left:55.3%;top:11%;width:45.2%;height:47.4%;z-index:1}
+  .platter__quad-img:nth-child(3){left:26.5%;top:22%;width:40.6%;height:42.6%;z-index:3}
+  .platter__quad-img:nth-child(4){left:10%;top:48.3%;width:48.4%;height:46.4%;z-index:2}
+  .platter__drink{left:60%;top:30%;width:45%;height:70%;object-position:center bottom;z-index:4}
+}
 
 /* text */
 .platter__content{flex:none;width:22.2cqw;max-width:100%}
@@ -731,53 +734,33 @@ img{max-width:100%;height:auto}
     padding:calc(min(70vw,420px) * .95 - 7vw) 20px 24px;
   }
   /* ─── Mobile platter image layout ───────────────────────────────
-     To MOVE  an image: change margin-top / margin-left on its rule.
-     To RESIZE an image: change width / height on its rule.
-     All % values are relative to .platter__imgs (min(70vw,420px) square).
+     Each image is controlled by inline style variables set in the HTML.
+     Edit the style="…" on each <img> in menu.html to adjust individually.
+       --l  = left   (% from left edge of the cluster box)
+       --t  = top    (% from top  edge of the cluster box)
+       --w  = width  (% of the cluster box width)
+       --h  = height (% of the cluster box height)
+       --s  = scale  (1 = normal, 1.5 = 50% bigger, 0.8 = smaller)
+       --z  = z-index (stacking order — higher number = on top)
   ──────────────────────────────────────────────────────────────── */
   .platter__imgs{
     left:50%;top:-10vw;transform:translateX(-50%);
-    /* same value for width AND height so % margins/positions work */
     width:min(70vw,420px);height:min(70vw,420px);
     position:absolute;overflow:visible;
   }
-  /* __quad fills the box — children use position:absolute inside it */
   .platter__quad{position:absolute;inset:0}
 
-  /* img 1 — big plate, top-left */
-  .platter__quad-img:nth-child(1){
-    position:absolute;
-    left:0;    top:0;
-    width:53%; height:50%;
-    z-index:1;
+  .platter__quad-img{
+    position:absolute;object-fit:contain;
+    left:var(--l);top:var(--t);width:var(--w);height:var(--h);
+    transform:scale(var(--s,1));transform-origin:center center;
+    z-index:var(--z,1);
   }
-  /* img 2 — bowl, top-right */
-  .platter__quad-img:nth-child(2){
-    position:absolute;
-    left:50%;  top:5%;
-    width:50%; height:48%;
-    z-index:1;
-  }
-  /* img 3 — front centre plate */
-  .platter__quad-img:nth-child(3){
-    position:absolute;
-    left:-30%;  top:28%;
-    width:55%; height:48%;
-    z-index:3;
-  }
-  /* img 4 — bottom-left plate */
-  .platter__quad-img:nth-child(4){
-    position:absolute;
-    left:0;    top:50%;
-    width:52%; height:48%;
-    z-index:2;
-  }
-  /* drink */
   .platter__drink{
-    position:absolute;
-    left:60%;  top:28%;
-    width:38%; height:65%;
-    object-fit:contain;object-position:center bottom;z-index:4;
+    position:absolute;object-fit:contain;object-position:center bottom;
+    left:var(--l);top:var(--t);width:var(--w);height:var(--h);
+    transform:scale(var(--s,1));transform-origin:center center;
+    z-index:var(--z,4);
   }
   .platter__content{width:100%}
   .platter__name{margin-bottom:12px}
