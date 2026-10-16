@@ -59,10 +59,9 @@ h1,h2,h3,p{margin:0}
   transition:background-color .2s,color .2s;
 }
 @media (min-width:861px){
-  /* Home + Contact: same width, and same 2px inset from the pill's left / right edge */
-  .nav__pill a[href="#home"],.nav__pill a[href="#contact"]{width:17.5%;transform:none}
-  .nav__pill a[href="#home"]{left:2px}
-  .nav__pill a[href="#contact"]{left:auto;right:2px}
+  /* Center the navigation group and give every link the same amount of space. */
+  .nav__pill{left:50%;width:52%;display:flex;transform:translate(-50%,-50%)}
+  .nav__pill a{position:static;transform:none;min-width:0;flex:1;padding:0 1cqw}
 }
 .nav__pill a:hover{color:var(--coral)}
 .nav__pill a.is-active{background:var(--coral);color:#fff}
@@ -73,6 +72,14 @@ h1,h2,h3,p{margin:0}
 
 /* ───────── Stage sections (16:9 frames from the Figma) ───────── */
 .stage{position:relative;overflow:hidden;container-type:inline-size;aspect-ratio:16/9;background:#fff}
+.stage,.foot{will-change:opacity,transform;transition:opacity .8s ease,transform .8s cubic-bezier(.22,.61,.36,1)}
+@media (prefers-reduced-motion:no-preference){
+  .stage:not(.is-visible),.foot:not(.is-visible){opacity:0;transform:translateY(34px)}
+  .stage.is-visible,.foot.is-visible{opacity:1;transform:none;transition:opacity .8s ease,transform .8s cubic-bezier(.22,.61,.36,1)}
+}
+@media (prefers-reduced-motion:reduce){
+  .stage,.foot{opacity:1;transform:none;transition:none}
+}
 .p{position:absolute;left:var(--x);top:var(--y);width:var(--w,auto)}
 .display{font-weight:800;letter-spacing:-.012em;line-height:1.1;text-transform:uppercase;margin:0}
 .script{font-family:var(--script);font-weight:400;color:var(--coral);line-height:1;white-space:nowrap;letter-spacing:0}
@@ -97,17 +104,21 @@ h1,h2,h3,p{margin:0}
 .about__home{--x:18.9%;--y:32.6%;font-size:11.8cqw;z-index:3}
 .about__body{--x:54.3%;--y:15.2%;--w:38.2%;z-index:3;font-size:1.18cqw;line-height:1.12}
 .about__body p+p{margin-top:1.4cqw}
-.about__goal-label{--x:64%;--y:37.4%;font-size:6.4cqw;color:#000;z-index:4}
+.about__goal-label{--x:64%;--y:37.4%;font-size:6.4cqw;color:#000;z-index:5}
 .about__goal{
   --x:54.2%;--y:43.2%;--w:37.2%;height:27.2%;
+  position:absolute;
   background:var(--pink);border-radius:1.5cqw;z-index:3;
   display:flex;flex-direction:column;align-items:center;text-align:center;
   padding:4.9cqw 2.2cqw 0;
+  isolation:isolate;
 }
+.about__goal > *{position:relative;z-index:1}
+.about__goal p{max-width:100%}
 .about__goal p{font-size:1.04cqw;line-height:1.2;margin:0}
 .about__goal .about__tag{font-weight:700;font-size:1.15cqw;margin-top:1cqw}
 .about__logo{width:4.1cqw;height:auto;margin-top:.9cqw}
-.about__photo{position:absolute;left:0;bottom:0;width:100%;height:auto;z-index:2}
+.about__photo{position:absolute;left:0;bottom:0;width:100%;height:64%;object-fit:cover;object-position:center bottom;z-index:4}
 
 /* ── 3 · Featured dishes ── */
 .dot{position:absolute;z-index:0;border-radius:50%;background:var(--blush)}
