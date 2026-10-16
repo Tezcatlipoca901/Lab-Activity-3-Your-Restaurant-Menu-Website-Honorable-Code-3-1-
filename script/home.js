@@ -34,17 +34,23 @@
   toggle.addEventListener('click',function(){ setOpen(!nav.classList.contains('is-open')); });
   nav.querySelectorAll('.nav__pill a').forEach(function(a){ a.addEventListener('click',function(){ setOpen(false); }); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') setOpen(false); });
-})();
-/* Navbar: add a white background once the hero is behind it, so page content doesn't show through the links */
-(function(){
-  var nav=document.getElementById('nav'), hero=document.getElementById('home');
-  if(!nav||!hero) return;
-  function update(){ nav.classList.toggle('is-solid', hero.getBoundingClientRect().bottom <= nav.offsetHeight); }
-  update();
-  addEventListener('scroll',update,{passive:true});
-  addEventListener('resize',update);
-})();
 
+  // Smooth scroll-in animation for each page section; no hover interaction required.
+  var revealItems=[].slice.call(document.querySelectorAll('.stage, .foot'));
+  if('IntersectionObserver' in window){
+    var revealObserver=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    revealItems.forEach(function(item){ revealObserver.observe(item); });
+  }else{
+    revealItems.forEach(function(item){ item.classList.add('is-visible'); });
+  }
+})();
 /* Menu search: hides cards that don't match. Uses its own class, so it works together with the category filters. */
 (function(){
   var input=document.querySelector('.menu-find input');
