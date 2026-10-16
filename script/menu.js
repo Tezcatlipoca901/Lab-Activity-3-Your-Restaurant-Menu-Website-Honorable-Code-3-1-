@@ -91,26 +91,23 @@
     return name.includes(t) || name.replace(/\s/g,'').includes(t.replace(/\s/g,'')) || desc.includes(t);
   }
 
-  // Filter by category
+  // Category and search work together: a card shows only if it matches both.
+  var currentCategory = 'all';
+  function currentTerm(){ return (searchInputs[0] ? searchInputs[0].value : '').trim().toLowerCase(); }
+  function applyFilters(){
+    var term = currentTerm();
+    menuCards.forEach(function(card){
+      var inCat = currentCategory === 'all' || card.getAttribute('data-category') === currentCategory;
+      card.classList.toggle('hidden', !(inCat && cardMatches(card, term)));
+    });
+  }
+
+  // Filter by category (keeps whatever is typed in the search bar)
   filterBtns.forEach(function(btn){
     btn.addEventListener('click', function(){
-      var category = this.getAttribute('data-category');
-      
-      // Update active button
-      filterBtns.forEach(function(b){ b.classList.remove('is-active'); });
-      this.classList.add('is-active');
-      
-      // Filter cards
-      menuCards.forEach(function(card){
-        if(category === 'all' || card.getAttribute('data-category') === category){
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-      
-      // Clear search if filter is changed
-      searchInputs.forEach(function(i){ i.value = ''; });
+      currentCategory = this.getAttribute('data-category');
+      filterBtns.forEach(function(b){ b.classList.toggle('is-active', b === btn); });
+      applyFilters();
     });
   });
 
@@ -122,14 +119,7 @@
       // keep the other search bar in sync
       searchInputs.forEach(function(i){ if(i !== input) i.value = input.value; });
 
-      menuCards.forEach(function(card){
-        card.classList.toggle('hidden', !cardMatches(card, searchTerm));
-      });
-
-      // Reset filter buttons when searching
-      if(searchTerm){
-        filterBtns.forEach(function(b){ b.classList.remove('is-active'); });
-      }
+      applyFilters();
     });
   });
 
@@ -230,12 +220,8 @@
     // filter the grid and jump to the menu panel
     function runSearch(){
       var term = heroInput.value.trim().toLowerCase();
-      menuCards.forEach(function(card){
-        card.classList.toggle('hidden', !cardMatches(card, term));
-      });
       searchInputs.forEach(function(i){ if(i !== heroInput) i.value = heroInput.value; });
-      if(term) filterBtns.forEach(function(b){ b.classList.remove('is-active'); });
-      else filterBtns.forEach(function(b){ b.classList.toggle('is-active', b.getAttribute('data-category') === 'all'); });
+      applyFilters();
 
       closeList();
       var panel = document.getElementById('menu');
@@ -312,6 +298,12 @@
   }
   function restart(){ stop(); start(); }
 
+  // Arrows
+  var prevBtn = root.querySelector('.sulit-deals__arrow--prev'),
+      nextBtn = root.querySelector('.sulit-deals__arrow--next');
+  if(prevBtn) prevBtn.addEventListener('click', function(){ go(index - 1, true); });
+  if(nextBtn) nextBtn.addEventListener('click', function(){ go(index + 1, true); });
+
   // Dots
   dots.forEach(function(dot, n){
     dot.addEventListener('click', function(){ go(n, true); });
@@ -343,6 +335,130 @@
   viewport.addEventListener('pointercancel', function(){ tracking = false; });
 
   // Pause while the person is looking at / interacting with it, or the tab is hidden
+  root.addEventListener('mouseenter', stop);
+  root.addEventListener('mouseleave', start);
+  root.addEventListener('focusin', stop);
+  root.addEventListener('focusout', start);
+  document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : start(); });
+
+  go(0);
+  start();
+})();
+
+
+// "No results" message for both search bars
+(function(){
+  var grid  = document.querySelector('.menu-grid');
+  var empty = document.querySelector('.menu-empty');
+  if(!grid || !empty) return;
+  var cards  = [].slice.call(grid.querySelectorAll('.menu-card'));
+  var inputs = [].slice.call(document.querySelectorAll('.menu-search input, .menu-find input'));
+  var term   = empty.querySelector('.menu-empty__term');
+
+  function update(){
+    var q = (inputs[0] ? inputs[0].value : '').trim();
+    var visible = cards.some(function(c){ return !c.classList.contains('hidden'); });
+    var show = q !== '' && !visible;
+    empty.hidden = !show;
+    var activeBtn = document.querySelector('.filter-btn.is-active');
+    var cat = activeBtn && activeBtn.getAttribute('data-category') !== 'all' ? activeBtn.textContent.trim() : '';
+    term.textContent = show ? ' for \u201C' + q + '\u201D' + (cat ? ' in ' + cat : '') : '';
+    inputs.forEach(function(i){ i.classList.toggle('has-no-results', show); });
+  }
+
+  // runs whenever a card is hidden or shown, whichever search bar caused it
+  var mo = new MutationObserver(update);
+  cards.forEach(function(c){ mo.observe(c, {attributes:true, attributeFilter:['class']}); });
+  inputs.forEach(function(i){ i.addEventListener('input', update); });
+  document.querySelectorAll('.filter-btn').forEach(function(b){ b.addEventListener('click', function(){ setTimeout(update, 0); }); });
+})();
+
+
+// Platter carousel (one platter at a time: dots, swipe, auto-advance)
+(function(){
+  var root = document.querySelector('.platter__carousel');
+  if(!root) return;
+
+  var viewport = root.querySelector('.platter__viewport'),
+      track    = root.querySelector('.platter__track'),
+      slides   = [].slice.call(root.querySelectorAll('.platter__slide')),
+      dots     = [].slice.call(root.querySelectorAll('.platter__dot')),
+      count    = slides.length,
+      index    = 0,
+      timer    = null,
+      INTERVAL = 8000,
+      reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if(count < 2) return;
+
+  function go(i, user){
+    index = (i + count) % count;
+    track.style.transform = 'translateX(' + (-100 * index) + '%)';
+    slides.forEach(function(s, n){
+      if(n === index){ s.removeAttribute('aria-hidden'); s.removeAttribute('inert'); }
+      else { s.setAttribute('aria-hidden', 'true'); s.setAttribute('inert', ''); }
+    });
+    dots.forEach(function(d, n){
+      var on = n === index;
+      d.classList.toggle('is-active', on);
+      d.setAttribute('aria-selected', on ? 'true' : 'false');
+      d.tabIndex = on ? 0 : -1;
+    });
+    collapseAll();
+    if(user) restart();
+  }
+
+  var toggles = [].slice.call(root.querySelectorAll('.platter__more'));
+  function anyOpen(){ return toggles.some(function(b){ return b.getAttribute('aria-expanded') === 'true'; }); }
+  function setOpen(b, open){
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    b.textContent = open ? 'Hide details' : 'What’s included';
+  }
+  function collapseAll(){ toggles.forEach(function(b){ setOpen(b, false); }); }
+  toggles.forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.getAttribute('aria-expanded') !== 'true';
+      collapseAll();
+      setOpen(b, open);
+      restart();
+    });
+  });
+
+  function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+  function start(){
+    if(reduceMotion || timer || anyOpen()) return;   // don't move on while someone is reading the details
+    timer = setInterval(function(){ go(index + 1); }, INTERVAL);
+  }
+  function restart(){ stop(); start(); }
+
+  dots.forEach(function(dot, n){
+    dot.addEventListener('click', function(){ go(n, true); });
+    dot.addEventListener('keydown', function(e){
+      var next = null;
+      if(e.key === 'ArrowRight' || e.key === 'ArrowDown') next = n + 1;
+      else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = n - 1;
+      else if(e.key === 'Home') next = 0;
+      else if(e.key === 'End') next = count - 1;
+      if(next === null) return;
+      e.preventDefault();
+      go(next, true);
+      dots[(next + count) % count].focus();
+    });
+  });
+
+  var startX = 0, startY = 0, tracking = false;
+  viewport.addEventListener('pointerdown', function(e){
+    if(e.pointerType === 'mouse' && e.button !== 0) return;
+    startX = e.clientX; startY = e.clientY; tracking = true;
+  });
+  viewport.addEventListener('pointerup', function(e){
+    if(!tracking) return;
+    tracking = false;
+    var dx = e.clientX - startX, dy = e.clientY - startY;
+    if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) go(index + (dx < 0 ? 1 : -1), true);
+  });
+  viewport.addEventListener('pointercancel', function(){ tracking = false; });
+
   root.addEventListener('mouseenter', stop);
   root.addEventListener('mouseleave', start);
   root.addEventListener('focusin', stop);
