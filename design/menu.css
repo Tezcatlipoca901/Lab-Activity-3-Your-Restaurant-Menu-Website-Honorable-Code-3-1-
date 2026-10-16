@@ -125,16 +125,16 @@ img{max-width:100%;height:auto}
 
 /* left column: title, blurb, search */
 .menu-hero__copy{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center}
-.menu-title{margin:0;line-height:1;position:relative;text-align:center}
+.menu-title{margin:0;line-height:1;position:relative;text-align:left}
 .menu-title__our{
   display:block;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;
-  font-size:clamp(52px,6.7cqw,240px);
+  font-size:clamp(72px,9.5cqw,320px);
 }
 .menu-title__menu{
   display:block;position:relative;z-index:1;
   font-family:var(--script);font-weight:400;color:var(--coral);
-  font-size:clamp(88px,15.5cqw,420px);line-height:.9;
-  margin:-.28em 0 0 .62em;
+  font-size:clamp(150px,26cqw,720px);line-height:.9;
+  margin:-.28em 0 0 .45em;
 }
 .menu-hero__sub{
   width:100%;max-width:38cqw;margin:1.5cqw 0 0;padding:0 2cqw;
@@ -703,7 +703,6 @@ img{max-width:100%;height:auto}
     z-index:5;                            /* keeps the suggestions dropdown above the sections below */
   }
   .deco{display:none}
-  .menu-title__menu{margin-left:.3em}
   .menu-hero__sub,
   .menu-search{width:100%;max-width:none;margin-top:20px}
   .menu-hero__sub{padding:0}
