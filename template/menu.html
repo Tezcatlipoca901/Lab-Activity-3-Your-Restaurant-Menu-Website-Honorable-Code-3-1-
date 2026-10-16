@@ -52,9 +52,11 @@
         <span class="menu-title__menu">Menu</span>
       </h1>
       <p class="menu-hero__sub">Explore Filipino favorites from breakfast to merienda. Every dish is cooked to order and best enjoyed together.</p>
-      <form class="menu-search" role="search" onsubmit="return false">
+      <form class="menu-search" role="search" action="#menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <input type="search" name="q" placeholder="Search" aria-label="Search the menu">
+        <input type="search" name="q" placeholder="Search" aria-label="Search the menu" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="menu-suggest" aria-autocomplete="list">
+        <button type="submit" class="menu-search__go">Search<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <ul class="menu-suggest" id="menu-suggest" role="listbox" aria-label="Search suggestions" hidden></ul>
       </form>
     </div>
 
