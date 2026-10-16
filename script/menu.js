@@ -79,6 +79,18 @@
   var menuCards = document.querySelectorAll('.menu-card');
   var searchInputs = [].slice.call(document.querySelectorAll('.menu-search input, .menu-find input'));
 
+  // The card title is built from two parts ("Savory" + "BANGSILOG") with no space between,
+  // so a plain textContent search for "savory bangsilog" never matched. Compare with spaces
+  // normalised and also with spaces removed.
+  function cardMatches(card, term){
+    if(!term) return true;
+    var h = card.querySelector('.menu-card__name');
+    var name = [].map.call(h.childNodes, function(n){ return n.textContent.trim(); }).join(' ').toLowerCase().replace(/\s+/g,' ');
+    var desc = card.querySelector('.menu-card__desc').textContent.toLowerCase();
+    var t = term.toLowerCase().replace(/\s+/g,' ').trim();
+    return name.includes(t) || name.replace(/\s/g,'').includes(t.replace(/\s/g,'')) || desc.includes(t);
+  }
+
   // Filter by category
   filterBtns.forEach(function(btn){
     btn.addEventListener('click', function(){
@@ -111,14 +123,7 @@
       searchInputs.forEach(function(i){ if(i !== input) i.value = input.value; });
 
       menuCards.forEach(function(card){
-        var name = card.querySelector('.menu-card__name').textContent.toLowerCase();
-        var desc = card.querySelector('.menu-card__desc').textContent.toLowerCase();
-
-        if(name.includes(searchTerm) || desc.includes(searchTerm)){
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
+        card.classList.toggle('hidden', !cardMatches(card, searchTerm));
       });
 
       // Reset filter buttons when searching
@@ -127,6 +132,143 @@
       }
     });
   });
+
+  // ── Hero search bar: "Search" pill + suggestions ──
+  var heroForm = document.querySelector('.menu-search');
+  if(heroForm){
+    var heroInput = heroForm.querySelector('input');
+    var heroGo    = heroForm.querySelector('.menu-search__go');
+    var list      = heroForm.querySelector('.menu-suggest');
+    var MAX = 6, active = -1, items = [];
+
+    // dish data, read from the menu cards
+    var dishes = [].slice.call(menuCards).map(function(card){
+      var h = card.querySelector('.menu-card__name');
+      var raw = [].map.call(h.childNodes, function(n){ return n.textContent.trim(); }).join(' ').replace(/\s+/g,' ').trim();
+      var img = card.querySelector('.menu-card__img img');
+      var price = card.querySelector('.menu-card__price-amount');
+      return {
+        name: raw.toLowerCase().replace(/\b\w/g, function(c){ return c.toUpperCase(); }),
+        key: raw.toLowerCase(),
+        src: img ? img.getAttribute('src') : '',
+        price: price ? price.textContent.trim() : '',
+        cat: (card.getAttribute('data-category') || '').replace(/-/g,' ')
+      };
+    });
+
+    function syncActive(){ heroForm.classList.toggle('is-active', heroInput.value.trim() !== ''); }
+
+    function closeList(){
+      list.hidden = true; list.innerHTML = ''; items = []; active = -1;
+      heroInput.setAttribute('aria-expanded','false');
+      heroInput.removeAttribute('aria-activedescendant');
+    }
+
+    function setActive(i){
+      if(!items.length) return;
+      active = (i + items.length) % items.length;
+      items.forEach(function(li, n){
+        var on = n === active;
+        li.classList.toggle('is-active', on);
+        li.setAttribute('aria-selected', on ? 'true' : 'false');
+        if(on){ heroInput.setAttribute('aria-activedescendant', li.id); li.scrollIntoView({block:'nearest'}); }
+      });
+    }
+
+    function highlight(el, text, term){
+      var i = text.toLowerCase().indexOf(term);
+      if(i < 0){ el.textContent = text; return; }
+      el.appendChild(document.createTextNode(text.slice(0, i)));
+      var m = document.createElement('mark'); m.textContent = text.slice(i, i + term.length);
+      el.appendChild(m);
+      el.appendChild(document.createTextNode(text.slice(i + term.length)));
+    }
+
+    function showSuggestions(){
+      var term = heroInput.value.trim().toLowerCase();
+      closeList();
+      if(!term) return;
+
+      // names that start with the term (or a word in it) first, then anything containing it
+      var starts = [], contains = [];
+      dishes.forEach(function(d){
+        var i = d.key.indexOf(term);
+        if(i === 0 || (i > 0 && d.key.charAt(i-1) === ' ')) starts.push(d);
+        else if(i > 0) contains.push(d);
+      });
+      var found = starts.concat(contains).slice(0, MAX);
+
+      if(!found.length){
+        var none = document.createElement('li');
+        none.className = 'menu-suggest__empty'; none.setAttribute('role','option');
+        none.textContent = 'No dishes found for \u201C' + heroInput.value.trim() + '\u201D';
+        list.appendChild(none);
+      } else {
+        found.forEach(function(d, n){
+          var li = document.createElement('li');
+          li.className = 'menu-suggest__item'; li.id = 'menu-suggest-' + n;
+          li.setAttribute('role','option'); li.setAttribute('aria-selected','false');
+          li.dataset.value = d.name;
+
+          var img = document.createElement('img');
+          img.className = 'menu-suggest__img'; img.src = d.src; img.alt = ''; img.loading = 'lazy';
+          var name = document.createElement('span'); name.className = 'menu-suggest__name';
+          highlight(name, d.name, term);
+          var meta = document.createElement('span'); meta.className = 'menu-suggest__meta';
+          var pr = document.createElement('span'); pr.className = 'menu-suggest__price'; pr.textContent = d.price;
+          var ct = document.createElement('span'); ct.className = 'menu-suggest__cat'; ct.textContent = d.cat;
+          meta.appendChild(pr); meta.appendChild(ct);
+
+          li.appendChild(img); li.appendChild(name); li.appendChild(meta);
+          list.appendChild(li); items.push(li);
+        });
+      }
+      list.hidden = false;
+      heroInput.setAttribute('aria-expanded','true');
+    }
+
+    // filter the grid and jump to the menu panel
+    function runSearch(){
+      var term = heroInput.value.trim().toLowerCase();
+      menuCards.forEach(function(card){
+        card.classList.toggle('hidden', !cardMatches(card, term));
+      });
+      searchInputs.forEach(function(i){ if(i !== heroInput) i.value = heroInput.value; });
+      if(term) filterBtns.forEach(function(b){ b.classList.remove('is-active'); });
+      else filterBtns.forEach(function(b){ b.classList.toggle('is-active', b.getAttribute('data-category') === 'all'); });
+
+      closeList();
+      var panel = document.getElementById('menu');
+      if(panel) panel.scrollIntoView({behavior:'smooth', block:'start'});
+      heroInput.blur();
+    }
+
+    heroInput.addEventListener('input', function(){ syncActive(); showSuggestions(); });
+    heroInput.addEventListener('focus', function(){ if(heroInput.value.trim()) showSuggestions(); });
+    heroInput.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowDown'){ if(items.length){ e.preventDefault(); setActive(active + 1); } }
+      else if(e.key === 'ArrowUp'){ if(items.length){ e.preventDefault(); setActive(active - 1); } }
+      else if(e.key === 'Escape'){ closeList(); }
+      else if(e.key === 'Enter' && active > -1 && items[active]){
+        e.preventDefault();
+        heroInput.value = items[active].dataset.value; syncActive(); runSearch();
+      }
+    });
+
+    // keep focus in the input while clicking a suggestion / the Search pill
+    list.addEventListener('mousedown', function(e){ e.preventDefault(); });
+    if(heroGo) heroGo.addEventListener('mousedown', function(e){ e.preventDefault(); });
+    list.addEventListener('click', function(e){
+      var li = e.target.closest('.menu-suggest__item');
+      if(!li) return;
+      heroInput.value = li.dataset.value; syncActive(); runSearch();
+    });
+
+    document.addEventListener('click', function(e){ if(!heroForm.contains(e.target)) closeList(); });
+    heroInput.addEventListener('blur', function(){ setTimeout(closeList, 120); });
+
+    heroForm.addEventListener('submit', function(e){ e.preventDefault(); runSearch(); });
+  }
 })();
 
 
